@@ -1,392 +1,392 @@
-# API 密钥管理规范
+# API Key Management Guidelines
 
-## 📋 当前配置
+## 📋 Current Configuration
 
-### API 存储位置
+### API Storage Location
 
-所有 API 密钥现在统一存储在：
+All API keys are now stored in a single location:
 
 ```
 📁 ppt-generator/.env
 ```
 
-### ✅ 安全验证
+### ✅ Security Verification
 
-- ✅ `.env` 文件已创建
-- ✅ 已被 `.gitignore` 保护（第15行规则）
-- ✅ 不会被提交到 Git
-- ✅ `run.sh` 可以正确加载
+- ✅ `.env` file has been created
+- ✅ Protected by `.gitignore` (rule on line 15)
+- ✅ Will not be committed to Git
+- ✅ `run.sh` can load it correctly
 
-### 🎯 使用方法
+### 🎯 Usage
 
-**无需任何额外配置！** 直接使用即可：
+**No additional configuration needed!** Just run directly:
 
 ```bash
 ./run.sh --plan slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-输出显示：
+Output will show:
 ```
-📌 从 .env 文件加载API密钥
+📌 Loading API keys from .env file
 ```
 
 ---
 
-## 🔐 API 管理规范
+## 🔐 API Management Guidelines
 
-### 1️⃣ 添加新的 API 密钥
+### 1️⃣ Adding New API Keys
 
-编辑 `.env` 文件：
+Edit the `.env` file:
 
 ```bash
-# 使用编辑器打开
+# Open with an editor
 nano .env
 
-# 或使用 VS Code
+# Or use VS Code
 code .env
 ```
 
-按照以下格式添加：
+Add entries in the following format:
 
 ```bash
-# API 名称说明
-# 用途：描述这个 API 的用途
-# 获取地址：https://...
+# API name description
+# Purpose: describe what this API is used for
+# Get it at: https://...
 API_NAME=your-api-key-here
 ```
 
-**示例**：
+**Example:**
 
 ```bash
 # OpenAI API
-# 用途：未来可能用于文档分析
-# 获取地址：https://platform.openai.com/api-keys
+# Purpose: May be used for document analysis in the future
+# Get it at: https://platform.openai.com/api-keys
 OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 ```
 
-### 2️⃣ 在代码中使用 API 密钥
+### 2️⃣ Using API Keys in Code
 
-**❌ 错误做法**（硬编码）：
+**❌ Wrong approach** (hardcoding):
 
 ```python
-# 绝对不要这样做！
+# Never do this!
 api_key = "AIzaSyAfHE4vctPhMF2mVn96aEZZp8WuURlaGpM"
 ```
 
-**✅ 正确做法**（从环境变量读取）：
+**✅ Correct approach** (read from environment variables):
 
 ```python
 import os
 
-# 从环境变量读取
+# Read from environment variable
 api_key = os.environ.get("GEMINI_API_KEY")
 
-# 或带默认值
+# Or with a default value
 api_key = os.getenv("GEMINI_API_KEY", "")
 
-# 检查是否存在
+# Check if it exists
 if not api_key:
-    raise ValueError("未找到 GEMINI_API_KEY 环境变量")
+    raise ValueError("GEMINI_API_KEY environment variable not found")
 ```
 
-### 3️⃣ 环境变量加载优先级
+### 3️⃣ Environment Variable Loading Priority
 
-`run.sh` 的加载逻辑：
+`run.sh` loading logic:
 
 ```
-1. 系统环境变量（~/.zshrc 等）
-   ↓ 如果没有
-2. .env 文件
-   ↓ 如果都没有
-3. 报错提示用户配置
+1. System environment variables (~/.zshrc, etc.)
+   ↓ if not found
+2. .env file
+   ↓ if neither found
+3. Error prompting user to configure
 ```
 
-这意味着：
-- ✅ CI/CD 环境可以使用系统环境变量
-- ✅ 本地开发使用 .env 文件
-- ✅ 灵活切换不同环境的密钥
+This means:
+- ✅ CI/CD environments can use system environment variables
+- ✅ Local development uses .env file
+- ✅ Flexible switching between different environment keys
 
-### 4️⃣ 多环境管理
+### 4️⃣ Multi-Environment Management
 
-如果需要管理多个环境（开发/测试/生产）：
+If you need to manage multiple environments (dev/test/prod):
 
 ```bash
-# 开发环境
+# Development
 .env.development
 
-# 测试环境
+# Test
 .env.test
 
-# 生产环境
+# Production
 .env.production
 ```
 
-使用时指定：
+To use a specific environment:
 
 ```bash
-# 复制对应环境的配置
+# Copy the corresponding environment config
 cp .env.development .env
 
-# 或使用符号链接
+# Or use a symbolic link
 ln -sf .env.development .env
 ```
 
 ---
 
-## 📝 .env 文件结构
+## 📝 .env File Structure
 
-### 当前结构
+### Current Structure
 
 ```bash
 .env
-├─ [注释区域]
-│  ├─ 安全提醒
-│  ├─ 使用说明
-│  └─ 加载优先级说明
+├─ [Comments]
+│  ├─ Security reminder
+│  ├─ Usage instructions
+│  └─ Loading priority description
 │
-├─ [主要 API 密钥]
-│  └─ GEMINI_API_KEY (已配置)
+├─ [Primary API keys]
+│  └─ GEMINI_API_KEY (configured)
 │
-├─ [备用 API 密钥]
-│  ├─ OPENAI_API_KEY (注释状态)
-│  ├─ ANTHROPIC_API_KEY (注释状态)
-│  └─ STABILITY_API_KEY (注释状态)
+├─ [Backup API keys]
+│  ├─ OPENAI_API_KEY (commented out)
+│  ├─ ANTHROPIC_API_KEY (commented out)
+│  └─ STABILITY_API_KEY (commented out)
 │
-└─ [项目配置]
-   ├─ DEFAULT_RESOLUTION (注释状态)
-   ├─ DEFAULT_STYLE (注释状态)
-   └─ OUTPUT_DIR (注释状态)
+└─ [Project configuration]
+   ├─ DEFAULT_RESOLUTION (commented out)
+   ├─ DEFAULT_STYLE (commented out)
+   └─ OUTPUT_DIR (commented out)
 ```
 
-### 字段说明
+### Field Descriptions
 
-| 变量名 | 状态 | 用途 | 获取地址 |
-|--------|------|------|----------|
-| `GEMINI_API_KEY` | ✅ 已配置 | Nano Banana Pro 图像生成 | [Google AI Studio](https://makersuite.google.com/app/apikey) |
-| `OPENAI_API_KEY` | 💤 预留 | 未来可能用于文档分析 | [OpenAI Platform](https://platform.openai.com/api-keys) |
-| `ANTHROPIC_API_KEY` | 💤 预留 | 未来可能用于Claude API | [Anthropic Console](https://console.anthropic.com/) |
-| `STABILITY_API_KEY` | 💤 预留 | 未来可能用于其他图像模型 | [Stability AI](https://platform.stability.ai/) |
+| Variable | Status | Purpose | Where to Get It |
+|----------|--------|---------|-----------------|
+| `GEMINI_API_KEY` | ✅ Configured | Nano Banana Pro image generation | [Google AI Studio](https://makersuite.google.com/app/apikey) |
+| `OPENAI_API_KEY` | 💤 Reserved | May be used for document analysis in the future | [OpenAI Platform](https://platform.openai.com/api-keys) |
+| `ANTHROPIC_API_KEY` | 💤 Reserved | May be used for Claude API in the future | [Anthropic Console](https://console.anthropic.com/) |
+| `STABILITY_API_KEY` | 💤 Reserved | May be used for other image models in the future | [Stability AI](https://platform.stability.ai/) |
 
 ---
 
-## 🚨 安全检查清单
+## 🚨 Security Checklist
 
-### 开发时
+### During Development
 
-- [ ] 从不在代码中硬编码 API 密钥
-- [ ] 使用 `os.environ.get()` 或 `os.getenv()` 读取
-- [ ] 添加密钥缺失时的错误提示
-- [ ] 在函数/类初始化时读取，不要每次请求都读
+- [ ] Never hardcode API keys in code
+- [ ] Use `os.environ.get()` or `os.getenv()` to read them
+- [ ] Add error messages when keys are missing
+- [ ] Read keys during function/class initialization, not on every request
 
-### 提交前
+### Before Committing
 
-- [ ] 运行 `git status` 确认 .env 不在列表中
-- [ ] 运行 `grep -r "AIzaSy" --exclude-dir=.git .` 无输出
-- [ ] 检查 `.gitignore` 包含 `.env`
-- [ ] 代码中无任何硬编码的密钥
+- [ ] Run `git status` to confirm .env is not in the list
+- [ ] Run `grep -r "AIzaSy" --exclude-dir=.git .` with no output
+- [ ] Check that `.gitignore` includes `.env`
+- [ ] No hardcoded keys anywhere in the code
 
-### 分享项目时
+### When Sharing the Project
 
-- [ ] 提供 `.env.example` 作为模板
-- [ ] 在 README 中说明如何配置
-- [ ] 不要通过聊天/邮件发送 .env 文件
-- [ ] 建议用户使用自己的 API 密钥
+- [ ] Provide `.env.example` as a template
+- [ ] Explain how to configure it in README
+- [ ] Do not send .env files via chat/email
+- [ ] Suggest users use their own API keys
 
 ---
 
-## 💡 最佳实践
+## 💡 Best Practices
 
-### 1. 密钥轮换
+### 1. Key Rotation
 
-定期更新 API 密钥（建议 3-6 个月）：
+Regularly update API keys (recommended every 3–6 months):
 
 ```bash
-# 1. 在 API 平台生成新密钥
-# 2. 更新 .env 文件
-# 3. 测试功能正常
-# 4. 撤销旧密钥
+# 1. Generate a new key on the API platform
+# 2. Update the .env file
+# 3. Test that everything still works
+# 4. Revoke the old key
 ```
 
-### 2. 密钥权限
+### 2. Key Permissions
 
-为不同用途创建不同的 API 密钥：
+Create separate API keys for different purposes:
 
 ```bash
-# 开发用（限制配额）
+# Development (limited quota)
 GEMINI_API_KEY_DEV=...
 
-# 生产用（完整权限）
+# Production (full access)
 GEMINI_API_KEY_PROD=...
 ```
 
-### 3. 错误处理
+### 3. Error Handling
 
-代码中添加友好的错误提示：
+Add friendly error messages in your code:
 
 ```python
 import os
 import sys
 
 def get_api_key(key_name):
-    """安全获取 API 密钥"""
+    """Safely retrieve an API key"""
     api_key = os.getenv(key_name)
 
     if not api_key:
-        print(f"❌ 错误: 未找到 {key_name} 环境变量")
+        print(f"❌ Error: {key_name} environment variable not found")
         print("")
-        print("请配置 API 密钥：")
-        print("1. 编辑 .env 文件")
-        print("2. 添加：{key_name}=your-key")
-        print("3. 保存并重新运行")
+        print("Please configure the API key:")
+        print("1. Edit the .env file")
+        print(f"2. Add: {key_name}=your-key")
+        print("3. Save and re-run")
         sys.exit(1)
 
     return api_key
 
-# 使用
+# Usage
 gemini_key = get_api_key("GEMINI_API_KEY")
 ```
 
-### 4. 日志安全
+### 4. Log Safety
 
-不要在日志中输出完整密钥：
+Do not log the full key:
 
 ```python
-# ❌ 危险
+# ❌ Dangerous
 print(f"Using API key: {api_key}")
 
-# ✅ 安全
+# ✅ Safe
 print(f"Using API key: {api_key[:8]}...{api_key[-4:]}")
-# 输出: Using API key: AIzaSyAf...GpM
+# Output: Using API key: AIzaSyAf...GpM
 ```
 
 ---
 
-## 🔄 迁移指南
+## 🔄 Migration Guide
 
-### 从系统环境变量迁移到 .env
+### From System Environment Variables to .env
 
-如果您之前在 `~/.zshrc` 中配置了密钥：
+If you previously configured keys in `~/.zshrc`:
 
-**步骤1**: 从 .zshrc 删除
+**Step 1**: Remove from .zshrc
 
 ```bash
-# 编辑配置文件
+# Edit the config file
 nano ~/.zshrc
 
-# 删除这一行
+# Delete this line
 export GEMINI_API_KEY="..."
 
-# 重新加载
+# Reload
 source ~/.zshrc
 ```
 
-**步骤2**: 添加到 .env
+**Step 2**: Add to .env
 
 ```bash
-# .env 文件已包含密钥，无需额外操作
+# The .env file already contains the key, no extra steps needed
 ```
 
-**步骤3**: 测试
+**Step 3**: Test
 
 ```bash
 ./run.sh --help
-# 应该显示：📌 从 .env 文件加载API密钥
+# Should show: 📌 Loading API keys from .env file
 ```
 
-### 从 .env 迁移到系统环境变量
+### From .env to System Environment Variables
 
-如果您想使用系统环境变量（跨项目共享）：
+If you want to use system environment variables (shared across projects):
 
 ```bash
-# 1. 复制 .env 中的密钥
+# 1. Copy the key from .env
 cat .env | grep GEMINI_API_KEY
 
-# 2. 添加到 .zshrc
+# 2. Add to .zshrc
 echo 'export GEMINI_API_KEY="..."' >> ~/.zshrc
 
-# 3. 重新加载
+# 3. Reload
 source ~/.zshrc
 
-# 4. 测试
+# 4. Test
 ./run.sh --help
-# 应该显示：✅ 使用系统环境变量中的API密钥
+# Should show: ✅ Using API key from system environment variables
 ```
 
 ---
 
-## 📚 相关文档
+## 📚 Related Documentation
 
-- **SECURITY.md** - 完整的安全指南
-- **ENV_SETUP.md** - 环境变量配置详解
-- **.env.example** - 配置模板
-- **README.md** - 项目使用说明
+- **SECURITY.md** - Complete security guide
+- **ENV_SETUP.md** - Environment variable configuration details
+- **.env.example** - Configuration template
+- **README.md** - Project usage guide
 
 ---
 
-## 🆘 常见问题
+## 🆘 FAQ
 
-### Q: .env 文件在哪里？
+### Q: Where is the .env file?
 
-A: 在项目根目录 `ppt-generator/.env`
+A: In the project root directory at `ppt-generator/.env`
 
-### Q: 如何查看我的 API 密钥？
+### Q: How do I view my API key?
 
 A:
 ```bash
 cat .env | grep GEMINI_API_KEY
 ```
 
-### Q: 可以提交 .env 文件吗？
+### Q: Can I commit the .env file?
 
-A: **绝对不可以！** .env 文件包含敏感信息，已被 .gitignore 保护。
+A: **Absolutely not!** The .env file contains sensitive information and is protected by .gitignore.
 
-### Q: 团队协作时如何共享配置？
+### Q: How do I share configuration with a team?
 
 A:
-1. 提交 `.env.example` 模板
-2. 团队成员复制为 `.env`
-3. 各自填入自己的 API 密钥
+1. Commit the `.env.example` template
+2. Team members copy it to `.env`
+3. Each person fills in their own API key
 
-### Q: 如何知道密钥是从哪里加载的？
+### Q: How do I know where the key was loaded from?
 
-A: 运行任何命令时查看输出：
-- `✅ 使用系统环境变量中的API密钥` - 从系统加载
-- `📌 从 .env 文件加载API密钥` - 从 .env 加载
+A: Check the output when running any command:
+- `✅ Using API key from system environment variables` — loaded from system
+- `📌 Loading API keys from .env file` — loaded from .env
 
 ---
 
-## ✅ 总结
+## ✅ Summary
 
-### 当前配置
+### Current Setup
 
-✅ **API 密钥统一管理**
-- 存储位置：`ppt-generator/.env`
-- 安全保护：`.gitignore` 规则
-- 自动加载：`run.sh` 脚本
+✅ **Unified API key management**
+- Storage: `ppt-generator/.env`
+- Security: `.gitignore` rules
+- Auto-loading: `run.sh` script
 
-✅ **开发规范**
-- 不在代码中硬编码
-- 使用 `os.getenv()` 读取
-- 添加错误处理
-- 日志中不输出完整密钥
+✅ **Development standards**
+- No hardcoding in code
+- Use `os.getenv()` to read
+- Add error handling
+- Don't log full keys
 
-✅ **安全保证**
-- .env 不会提交到 Git
-- .env.example 作为模板
-- 定期轮换密钥
-- 不同环境使用不同密钥
+✅ **Security guarantees**
+- .env will not be committed to Git
+- .env.example serves as template
+- Regularly rotate keys
+- Use different keys for different environments
 
-### 立即可用
+### Ready to Use
 
-现在您可以直接开始迭代功能，所有 API 配置都已就绪！
+You can now iterate on features directly — all API configuration is ready!
 
 ```bash
-# 直接使用
+# Run directly
 ./run.sh --plan your_plan.json --style styles/gradient-glass.md
 ```
 
 ---
 
-**创建日期**: 2026-01-11
-**最后更新**: 2026-01-11
-**创作者**: 歸藏
+**Created**: 2026-01-11
+**Last Updated**: 2026-01-11
+**Author**: 歸藏

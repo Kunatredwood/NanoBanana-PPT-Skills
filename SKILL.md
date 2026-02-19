@@ -1,46 +1,46 @@
 # PPT Generator Pro - Claude Code Skill
 
-## 📋 元数据
+## 📋 Metadata
 
-- **Skill 名称**: ppt-generator-pro
-- **版本**: 2.0.0
-- **描述**: 基于 AI 自动生成高质量 PPT 图片和视频，支持智能转场和交互式播放
-- **作者**: 歸藏
-- **标签**: ppt, presentation, video, ai, nano-banana, kling-ai, image-generation
+- **Skill Name**: ppt-generator-pro
+- **Version**: 2.0.0
+- **Description**: AI-driven tool for generating high-quality PPT images and video presentations with smart transitions and an interactive player
+- **Author**: 歸藏
+- **Tags**: ppt, presentation, video, ai, nano-banana, kling-ai, image-generation
 
-## ✨ 功能特性
+## ✨ Features
 
-### 核心功能
-- 🤖 **智能文档分析** - 自动提取核心要点，规划 PPT 内容结构
-- 🎨 **多风格支持** - 内置渐变毛玻璃、矢量插画两种专业风格
-- 🖼️ **高质量图片** - 使用 Nano Banana Pro 生成 16:9 高清 PPT
-- 🎬 **AI 转场视频** - 可灵 AI 生成流畅的页面过渡动画
-- 🎮 **交互式播放器** - 视频+图片混合播放，支持键盘导航
-- 🎥 **完整视频导出** - FFmpeg 合成包含所有转场的完整 PPT 视频
+### Core Features
+- 🤖 **Intelligent Document Analysis** — auto-extracts key points and plans PPT content structure
+- 🎨 **Multi-Style Support** — 2 built-in professional styles: gradient glassmorphism and vector illustration
+- 🖼️ **High-Quality Images** — uses Nano Banana Pro to generate 16:9 HD PPT slides
+- 🎬 **AI Transition Videos** — Kling AI generates smooth page-to-page animations
+- 🎮 **Interactive Player** — mixed video + image playback with keyboard navigation
+- 🎥 **Full Video Export** — FFmpeg composes a complete PPT video with all transitions
 
-### 新功能 (v2.0)
-- 🔄 **首页循环预览** - 自动生成吸引眼球的循环动画
-- 🎞️ **智能转场** - 自动生成页面间的过渡视频
-- 🔧 **参数统一** - 自动统一所有视频分辨率和帧率
+### New Features (v2.0)
+- 🔄 **Cover Loop Preview** — auto-generates an eye-catching looping animation
+- 🎞️ **Smart Transitions** — auto-generates transition videos between slides
+- 🔧 **Parameter Normalization** — auto-normalizes all video resolutions and frame rates
 
-## 📦 系统要求
+## 📦 System Requirements
 
-### 环境变量
+### Environment Variables
 
-**必需：**
-- `GEMINI_API_KEY`: Google AI API 密钥（用于生成 PPT 图片）
+**Required:**
+- `GEMINI_API_KEY`: Google AI API key (for generating PPT images)
 
-**可选（用于视频功能）：**
-- `KLING_ACCESS_KEY`: 可灵 AI Access Key
-- `KLING_SECRET_KEY`: 可灵 AI Secret Key
+**Optional (for video features):**
+- `KLING_ACCESS_KEY`: Kling AI Access Key
+- `KLING_SECRET_KEY`: Kling AI Secret Key
 
-### Python 依赖
+### Python Dependencies
 
 ```bash
 pip install google-genai pillow python-dotenv
 ```
 
-### 视频功能依赖
+### Video Feature Dependencies
 
 ```bash
 # macOS
@@ -50,198 +50,198 @@ brew install ffmpeg
 sudo apt-get install ffmpeg
 ```
 
-## 🚀 使用方法
+## 🚀 Usage
 
-### 在 Claude Code 中调用
+### Invoking in Claude Code
 
 ```bash
 /ppt-generator-pro
 ```
 
-或直接告诉 Claude：
+Or tell Claude directly:
 
 ```
-我想基于以下文档生成一个 5 页的 PPT，使用渐变毛玻璃风格。
+I want to generate a 5-page PPT from the following document using the gradient glass style.
 
-[文档内容...]
+[Document content...]
 ```
 
-## 📝 Skill 执行流程
+## 📝 Skill Execution Workflow
 
-### 阶段 1: 收集用户输入
+### Phase 1: Collect User Input
 
-#### 1.1 获取文档内容
+#### 1.1 Get Document Content
 
-**选项 A: 文档路径**
+**Option A: Document path**
 ```
-用户: 基于 my-document.md 生成 PPT
-→ 使用 Read 工具读取文件内容
-```
-
-**选项 B: 直接文本**
-```
-用户: 我想生成一个关于 AI 产品设计的 PPT
-主要内容：
-1. 现状分析
-2. 设计原则
-3. 案例研究
+User: Generate a PPT from my-document.md
+→ Use the Read tool to read the file content
 ```
 
-**选项 C: 主动询问**
+**Option B: Direct text**
 ```
-如果用户未提供内容，询问：
-"请提供文档路径或直接粘贴文档内容"
+User: I want to generate a PPT about AI Product Design
+Main content:
+1. Current state analysis
+2. Design principles
+3. Case studies
 ```
 
-#### 1.2 选择风格
+**Option C: Proactively ask**
+```
+If the user hasn't provided content, ask:
+"Please provide a document path or paste the document content directly"
+```
 
-扫描 `styles/` 目录，列出可用风格：
+#### 1.2 Choose a Style
+
+Scan the `styles/` directory and list available styles:
 
 ```python
-# 自动检测风格文件
+# Auto-detect style files
 styles = ['gradient-glass.md', 'vector-illustration.md']
 ```
 
-**如果有多个风格，使用 AskUserQuestion：**
+**If multiple styles are available, use AskUserQuestion:**
 
 ```markdown
-问题: 请选择 PPT 风格
-选项:
-- 渐变毛玻璃卡片风格（科技感、商务演示）
-- 矢量插画风格（温暖、教育培训）
+Question: Please choose a PPT style
+Options:
+- Gradient Glassmorphism Card Style (tech feel, business presentations)
+- Vector Illustration Style (warm, education and training)
 ```
 
-#### 1.3 选择页数范围
+#### 1.3 Choose Slide Count
 
-使用 AskUserQuestion 询问：
+Use AskUserQuestion to ask:
 
 ```markdown
-问题: 希望生成多少页 PPT？
-选项:
-- 5 页（5 分钟演讲）
-- 5-10 页（10-15 分钟演讲）
-- 10-15 页（20-30 分钟演讲）
-- 20-25 页（45-60 分钟演讲）
+Question: How many slides would you like?
+Options:
+- 5 slides (5-minute presentation)
+- 5–10 slides (10–15-minute presentation)
+- 10–15 slides (20–30-minute presentation)
+- 20–25 slides (45–60-minute presentation)
 ```
 
-#### 1.4 选择分辨率
+#### 1.4 Choose Resolution
 
 ```markdown
-问题: 选择图片分辨率
-选项:
-- 2K (2752x1536) - 推荐，快速生成
-- 4K (5504x3072) - 高质量，适合打印
+Question: Choose image resolution
+Options:
+- 2K (2752x1536) — recommended, fast generation
+- 4K (5504x3072) — high quality, suitable for printing
 ```
 
-#### 1.5 是否生成视频（可选）
+#### 1.5 Generate Videos? (optional)
 
-如果配置了可灵 AI 密钥，询问：
+If Kling AI keys are configured, ask:
 
 ```markdown
-问题: 是否生成转场视频？
-选项:
-- 仅图片（快速）
-- 图片 + 转场视频（完整体验）
+Question: Would you like to generate transition videos?
+Options:
+- Images only (fast)
+- Images + transition videos (full experience)
 ```
 
-### 阶段 2: 文档分析与内容规划
+### Phase 2: Document Analysis and Content Planning
 
-#### 2.1 内容规划策略
+#### 2.1 Content Planning Strategy
 
-根据页数范围，智能规划每一页内容：
+Based on the slide count, intelligently plan the content for each slide:
 
-**5 页版本：**
-1. 封面：标题 + 核心主题
-2. 要点 1：第一个核心观点
-3. 要点 2：第二个核心观点
-4. 要点 3：第三个核心观点
-5. 总结：核心结论或行动建议
+**5-slide version:**
+1. Cover: title + core theme
+2. Point 1: first key insight
+3. Point 2: second key insight
+4. Point 3: third key insight
+5. Summary: core conclusions or action recommendations
 
-**5-10 页版本：**
-1. 封面
-2-3. 引言/背景
-4-7. 核心内容（3-4 个关键观点）
-8-9. 案例或数据支持
-10. 总结与行动建议
+**5–10-slide version:**
+1. Cover
+2–3. Introduction/background
+4–7. Core content (3–4 key insights)
+8–9. Cases or data support
+10. Summary and action recommendations
 
-**10-15 页版本：**
-1. 封面
-2-3. 引言/目录
-4-6. 第一章节（3 页）
-7-9. 第二章节（3 页）
-10-12. 第三章节/案例研究
-13-14. 数据可视化
-15. 总结与下一步
+**10–15-slide version:**
+1. Cover
+2–3. Introduction/table of contents
+4–6. Chapter 1 (3 slides)
+7–9. Chapter 2 (3 slides)
+10–12. Chapter 3/case studies
+13–14. Data visualization
+15. Summary and next steps
 
-**20-25 页版本：**
-1. 封面
-2. 目录
-3-4. 引言和背景
-5-8. 第一部分（4 页）
-9-12. 第二部分（4 页）
-13-16. 第三部分（4 页）
-17-19. 案例研究
-20-22. 数据分析和洞察
-23-24. 关键发现和建议
-25. 总结与致谢
+**20–25-slide version:**
+1. Cover
+2. Table of contents
+3–4. Introduction and background
+5–8. Part 1 (4 slides)
+9–12. Part 2 (4 slides)
+13–16. Part 3 (4 slides)
+17–19. Case studies
+20–22. Data analysis and insights
+23–24. Key findings and recommendations
+25. Summary and acknowledgements
 
-#### 2.2 生成 slides_plan.json
+#### 2.2 Generate slides_plan.json
 
-创建 JSON 文件：
+Create the JSON file:
 
 ```json
 {
-  "title": "文档标题",
+  "title": "Document Title",
   "total_slides": 5,
   "slides": [
     {
       "slide_number": 1,
       "page_type": "cover",
-      "content": "标题：AI 产品设计指南\n副标题：构建以用户为中心的智能体验"
+      "content": "Title: AI Product Design Guide\nSubtitle: Building User-Centered Intelligent Experiences"
     },
     {
       "slide_number": 2,
       "page_type": "content",
-      "content": "核心原则\n- 简单直观\n- 快速响应\n- 透明可控"
+      "content": "Core Principles\n- Simple and intuitive\n- Fast response\n- Transparent and controllable"
     },
     {
       "slide_number": 3,
       "page_type": "content",
-      "content": "设计流程\n1. 用户研究\n2. 原型设计\n3. 测试迭代"
+      "content": "Design Process\n1. User research\n2. Prototype design\n3. Test and iterate"
     },
     {
       "slide_number": 4,
       "page_type": "data",
-      "content": "用户满意度\n使用前：65%\n使用后：92%\n提升：+27%"
+      "content": "User Satisfaction\nBefore: 65%\nAfter: 92%\nImprovement: +27%"
     },
     {
       "slide_number": 5,
       "page_type": "content",
-      "content": "总结\n- 以用户为中心\n- 持续优化迭代\n- 数据驱动决策"
+      "content": "Summary\n- User-centered\n- Continuous optimization\n- Data-driven decisions"
     }
   ]
 }
 ```
 
-**重要：** 将此文件保存到：
-- 独立使用：`./slides_plan.json`
-- Skill 模式：`.claude/skills/ppt-generator/slides_plan.json`
+**Important:** Save this file to:
+- Standalone use: `./slides_plan.json`
+- Skill mode: `.claude/skills/ppt-generator/slides_plan.json`
 
-### 阶段 3: 生成 PPT 图片
+### Phase 3: Generate PPT Images
 
-#### 3.1 确定工作目录
+#### 3.1 Determine Working Directory
 
-**独立模式：**
+**Standalone mode:**
 ```bash
 cd /path/to/ppt-generator
 ```
 
-**Skill 模式：**
+**Skill mode:**
 ```bash
 cd ~/.claude/skills/ppt-generator
 ```
 
-#### 3.2 执行生成命令
+#### 3.2 Run the Generation Command
 
 ```bash
 python generate_ppt.py \
@@ -250,7 +250,7 @@ python generate_ppt.py \
   --resolution 2K
 ```
 
-**或使用 uv run（推荐）：**
+**Or use uv run (recommended):**
 ```bash
 uv run python generate_ppt.py \
   --plan slides_plan.json \
@@ -258,90 +258,90 @@ uv run python generate_ppt.py \
   --resolution 2K
 ```
 
-**参数说明：**
-- `--plan`: slides 规划 JSON 文件路径
-- `--style`: 风格文件路径
-- `--resolution`: 分辨率（2K 或 4K）
-- `--template`: HTML 模板路径（可选）
+**Parameter descriptions:**
+- `--plan`: path to the slides plan JSON file
+- `--style`: path to the style file
+- `--resolution`: resolution (2K or 4K)
+- `--template`: HTML template path (optional)
 
-#### 3.3 监控生成进度
+#### 3.3 Monitor Generation Progress
 
-脚本会输出进度信息：
+The script outputs progress information:
 
 ```
-✅ 已加载环境变量: /path/to/.env
-📊 开始生成 PPT 图片...
-   总页数: 5
-   分辨率: 2K (2752x1536)
-   风格: 渐变毛玻璃卡片风格
+✅ Loaded environment variables: /path/to/.env
+📊 Starting PPT image generation...
+   Total slides: 5
+   Resolution: 2K (2752x1536)
+   Style: Gradient Glassmorphism Card Style
 
-🎨 生成第 1 页 (封面页)...
-   提示词已生成
-   调用 Nano Banana Pro API...
-   ✅ 第 1 页生成成功 (32.5 秒)
+🎨 Generating slide 1 (Cover)...
+   Prompt generated
+   Calling Nano Banana Pro API...
+   ✅ Slide 1 generated successfully (32.5 seconds)
 
-🎨 生成第 2 页 (内容页)...
-   ✅ 第 2 页生成成功 (28.3 秒)
+🎨 Generating slide 2 (Content)...
+   ✅ Slide 2 generated successfully (28.3 seconds)
 
 ...
 
-✅ 所有页面生成完成！
-📁 输出目录: outputs/20260112_143022/
+✅ All slides generated!
+📁 Output directory: outputs/20260112_143022/
 ```
 
-### 阶段 4: 生成转场提示词（视频模式需要）
+### Phase 4: Generate Transition Prompts (required for video mode)
 
-**这是 Skill 的核心优势**：我（Claude Code）会分析生成的 PPT 图片，为每个转场生成精准的视频提示词。
+**This is the core advantage of the Skill**: I (Claude Code) will analyze the generated PPT images and create precise video prompts for each transition.
 
-#### 4.1 读取并分析 PPT 图片
+#### 4.1 Read and Analyze PPT Images
 
-我会读取所有生成的图片：
+I will read all the generated images:
 
 ```python
-# 自动读取输出目录中的所有图片
+# Auto-read all images in the output directory
 slides = ['slide-01.png', 'slide-02.png', ...]
 ```
 
-#### 4.2 分析图片差异并生成提示词
+#### 4.2 Analyze Image Differences and Generate Prompts
 
-对于每对相邻图片，我会：
-1. **视觉分析**：理解两张图片的布局、元素、色彩差异
-2. **生成预览提示词**：为首页创建可循环的微动效描述
-3. **生成转场提示词**：详细描述如何从起始帧过渡到结束帧
+For each pair of adjacent images, I will:
+1. **Visual analysis**: understand the layout, elements, and color differences between the two images
+2. **Generate preview prompt**: describe a loopable subtle-motion animation for the cover
+3. **Generate transition prompt**: describe in detail how to transition from the start frame to the end frame
 
-**示例输出：**
+**Example output:**
 ```json
 {
   "preview": {
     "slide_path": "outputs/.../slide-01.png",
-    "prompt": "画面保持封面的静态构图，中心的3D玻璃环缓慢旋转..."
+    "prompt": "The frame holds the cover's static composition; the central 3D glass ring slowly rotates..."
   },
   "transitions": [
     {
       "from_slide": 1,
       "to_slide": 2,
-      "prompt": "镜头从封面开始，玻璃环逐渐解构，分裂成透明碎片..."
+      "prompt": "The camera starts on the cover; the glass ring gradually deconstructs, splitting into transparent fragments..."
     }
   ]
 }
 ```
 
-#### 4.3 保存提示词文件
+#### 4.3 Save the Prompt File
 
-我会将生成的提示词保存到：
+I will save the generated prompts to:
 ```
 outputs/TIMESTAMP/transition_prompts.json
 ```
 
-**关键优势：**
-- ✅ 不需要单独的 Claude API 密钥
-- ✅ 提示词针对实际图片内容定制
-- ✅ 考虑文字稳定性，避免视频模型弄模糊文字
-- ✅ 符合渐变毛玻璃风格的视觉语言
+**Key advantages:**
+- ✅ No separate Claude API key required
+- ✅ Prompts are tailored to the actual image content
+- ✅ Considers text stability to avoid the video model blurring text
+- ✅ Consistent with the visual language of the gradient glassmorphism style
 
-### 阶段 5: 生成转场视频（可选）
+### Phase 5: Generate Transition Videos (optional)
 
-如果用户选择生成视频，使用阶段 4 生成的提示词文件：
+If the user chooses to generate videos, use the prompt file from Phase 4:
 
 ```bash
 python generate_ppt_video.py \
@@ -350,325 +350,325 @@ python generate_ppt_video.py \
   --prompts-file outputs/20260112_143022/transition_prompts.json
 ```
 
-**生成内容：**
-- 首页循环预览视频（`preview.mp4`）
-- 页面间转场视频（`transition_01_to_02.mp4` 等）
-- 交互式视频播放器（`video_index.html`）
-- 完整视频（`full_ppt_video.mp4`）
+**Generated content:**
+- Cover loop preview video (`preview.mp4`)
+- Slide transition videos (`transition_01_to_02.mp4`, etc.)
+- Interactive video player (`video_index.html`)
+- Full video (`full_ppt_video.mp4`)
 
-### 阶段 6: 返回结果
+### Phase 6: Return Results
 
-#### 6.1 仅图片模式
+#### 6.1 Image-Only Mode
 
 ```
-✅ PPT 生成成功！
+✅ PPT generated successfully!
 
-📁 输出目录: outputs/20260112_143022/
-🖼️ PPT 图片: outputs/20260112_143022/images/
-🎬 播放网页: outputs/20260112_143022/index.html
+📁 Output directory: outputs/20260112_143022/
+🖼️ PPT images: outputs/20260112_143022/images/
+🎬 Player page: outputs/20260112_143022/index.html
 
-打开播放网页:
+Open the player:
 open outputs/20260112_143022/index.html
 
-播放器快捷键:
-- ← → 键: 切换页面
-- ↑ Home: 回到首页
-- ↓ End: 跳到末页
-- 空格: 暂停/继续自动播放
-- ESC: 全屏切换
-- H: 隐藏/显示控件
+Player shortcuts:
+- ← → keys: navigate slides
+- ↑ Home: back to first slide
+- ↓ End: jump to last slide
+- Space: pause/resume auto-play
+- ESC: toggle fullscreen
+- H: show/hide controls
 ```
 
-#### 5.2 视频模式
+#### 5.2 Video Mode
 
 ```
-✅ PPT 视频生成成功！
+✅ PPT video generated successfully!
 
-📁 输出目录: outputs/20260112_143022_video/
-🖼️ PPT 图片: outputs/20260112_143022/images/
-🎬 转场视频: outputs/20260112_143022_video/videos/
-🎮 交互式播放器: outputs/20260112_143022_video/video_index.html
-🎥 完整视频: outputs/20260112_143022_video/full_ppt_video.mp4
+📁 Output directory: outputs/20260112_143022_video/
+🖼️ PPT images: outputs/20260112_143022/images/
+🎬 Transition videos: outputs/20260112_143022_video/videos/
+🎮 Interactive player: outputs/20260112_143022_video/video_index.html
+🎥 Full video: outputs/20260112_143022_video/full_ppt_video.mp4
 
-打开交互式播放器:
+Open the interactive player:
 open outputs/20260112_143022_video/video_index.html
 
-播放逻辑:
-1. 首页: 播放循环预览视频
-2. 按右键 → 播放转场视频 → 显示目标页图片（2 秒）
-3. 再按右键 → 播放下一个转场 → 显示下一页图片
-4. 依此类推...
+Playback logic:
+1. First slide: plays cover loop preview video
+2. Press → key → plays transition video → shows target slide image (2 seconds)
+3. Press → again → plays next transition → shows next slide
+4. And so on...
 
-视频播放器快捷键:
-- ← → 键: 上一页/下一页（含转场）
-- 空格: 播放/暂停当前视频
-- ESC: 全屏切换
-- H: 隐藏/显示控件
+Video player shortcuts:
+- ← → keys: previous/next slide (with transitions)
+- Space: play/pause current video
+- ESC: toggle fullscreen
+- H: show/hide controls
 ```
 
-## 🔧 环境变量配置
+## 🔧 Environment Variable Configuration
 
-### .env 文件位置
+### .env File Location
 
-Skill 会按以下顺序查找 `.env` 文件：
+The Skill searches for a `.env` file in the following order:
 
-1. **脚本所在目录** - `./ppt-generator/.env`
-2. **向上查找项目根目录** - 直到找到包含 `.git` 或 `.env` 的目录
-3. **Claude Skill 标准位置** - `~/.claude/skills/ppt-generator/.env`
-4. **系统环境变量** - 如果以上都未找到
+1. **Script directory** — `./ppt-generator/.env`
+2. **Search up to project root** — until a directory containing `.git` or `.env` is found
+3. **Claude Skill standard location** — `~/.claude/skills/ppt-generator/.env`
+4. **System environment variables** — if none of the above are found
 
-### .env 文件示例
+### .env File Example
 
 ```bash
-# Google AI API 密钥（必需）
+# Google AI API key (required)
 GEMINI_API_KEY=your_gemini_api_key_here
 
-# 可灵 AI API 密钥（可选，用于视频功能）
+# Kling AI API keys (optional, for video features)
 KLING_ACCESS_KEY=your_kling_access_key_here
 KLING_SECRET_KEY=your_kling_secret_key_here
 ```
 
-## ⚠️ 错误处理
+## ⚠️ Error Handling
 
-### 常见错误及解决方案
+### Common Errors and Solutions
 
-**1. API 密钥未设置**
+**1. API key not set**
 ```
-错误: ⚠️ 未找到 .env 文件，尝试使用系统环境变量
-      未设置 GEMINI_API_KEY 环境变量
+Error: ⚠️ No .env file found, trying system environment variables
+      GEMINI_API_KEY environment variable is not set
 
-解决:
-1. 创建 .env 文件
-2. 添加 GEMINI_API_KEY=your_key_here
-```
-
-**2. Python 依赖缺失**
-```
-错误: ModuleNotFoundError: No module named 'google.genai'
-
-解决: pip install google-genai pillow python-dotenv
+Solution:
+1. Create a .env file
+2. Add GEMINI_API_KEY=your_key_here
 ```
 
-**3. FFmpeg 未安装**
+**2. Missing Python dependency**
 ```
-错误: ❌ FFmpeg 不可用！
+Error: ModuleNotFoundError: No module named 'google.genai'
 
-解决: brew install ffmpeg  # macOS
-      sudo apt-get install ffmpeg  # Ubuntu
-```
-
-**4. API 调用失败**
-```
-错误: API 调用超时或失败
-
-解决:
-1. 检查网络连接
-2. 确认 API 密钥有效
-3. 稍后重试
+Solution: pip install google-genai pillow python-dotenv
 ```
 
-**5. 视频生成失败**
+**3. FFmpeg not installed**
 ```
-错误: 可灵 AI 密钥未配置
+Error: ❌ FFmpeg is not available!
 
-解决:
-1. 如果只需要图片，跳过视频生成步骤
-2. 如果需要视频，配置 KLING_ACCESS_KEY 和 KLING_SECRET_KEY
+Solution: brew install ffmpeg  # macOS
+          sudo apt-get install ffmpeg  # Ubuntu
 ```
 
-## 🎨 风格系统
+**4. API call failed**
+```
+Error: API call timed out or failed
 
-### 已内置风格
+Solution:
+1. Check your network connection
+2. Confirm the API key is valid
+3. Try again later
+```
 
-#### 1. 渐变毛玻璃卡片风格 (`gradient-glass.md`)
+**5. Video generation failed**
+```
+Error: Kling AI keys not configured
 
-**视觉特点：**
-- Apple Keynote 极简主义
-- 玻璃拟态效果
-- 霓虹紫/电光蓝/珊瑚橙渐变
-- 3D 玻璃物体 + 电影级光照
+Solution:
+1. If you only need images, skip the video generation step
+2. If you need videos, configure KLING_ACCESS_KEY and KLING_SECRET_KEY
+```
 
-**适用场景：**
-- 科技产品发布
-- 商务演示
-- 数据报告
-- 企业品牌展示
+## 🎨 Style System
 
-#### 2. 矢量插画风格 (`vector-illustration.md`)
+### Built-in Styles
 
-**视觉特点：**
-- 扁平化矢量设计
-- 统一黑色轮廓线
-- 复古柔和配色
-- 几何化简化
+#### 1. Gradient Glassmorphism Card Style (`gradient-glass.md`)
 
-**适用场景：**
-- 教育培训
-- 创意提案
-- 儿童相关
-- 温暖品牌故事
+**Visual characteristics:**
+- Apple Keynote minimalism
+- Glassmorphism effect
+- Neon purple / electric blue / coral orange gradients
+- 3D glass objects + cinematic lighting
 
-### 添加自定义风格
+**Best for:**
+- Tech product launches
+- Business presentations
+- Data reports
+- Corporate branding
 
-1. 在 `styles/` 目录创建新的 `.md` 文件
-2. 按照现有风格格式编写
-3. Skill 会自动识别并提供选择
+#### 2. Vector Illustration Style (`vector-illustration.md`)
 
-## 📊 技术细节
+**Visual characteristics:**
+- Flat vector design
+- Uniform black outlines
+- Retro muted color palette
+- Geometric simplification
 
-### API 配置
+**Best for:**
+- Education and training
+- Creative proposals
+- Children's content
+- Warm brand storytelling
 
-**Nano Banana Pro（图片生成）：**
-- 模型：`gemini-3-pro-image-preview`
-- 比例：`16:9`
-- 响应模式：`IMAGE`
-- 分辨率：2K (2752x1536) 或 4K (5504x3072)
+### Add a Custom Style
 
-**可灵 AI（视频生成）：**
-- 模式：专业模式（professional）
-- 时长：5 秒
-- 分辨率：1920x1080
-- 帧率：24fps
+1. Create a new `.md` file in the `styles/` directory
+2. Write it following the existing style format
+3. The Skill will auto-detect it and offer it as an option
 
-**FFmpeg（视频合成）：**
-- 编码：H.264
-- 质量：CRF 23
-- 帧率：24fps（统一）
-- 分辨率：1920x1080（统一）
+## 📊 Technical Details
 
-### 性能指标
+### API Configuration
 
-**生成速度：**
-- PPT 图片：~30 秒/页（2K）| ~60 秒/页（4K）
-- 转场视频：~30-60 秒/段
-- 视频合成：~5-10 秒
+**Nano Banana Pro (image generation):**
+- Model: `gemini-3-pro-image-preview`
+- Aspect ratio: `16:9`
+- Response mode: `IMAGE`
+- Resolution: 2K (2752x1536) or 4K (5504x3072)
 
-**文件大小：**
-- PPT 图片：~2.5MB/页（2K）| ~8MB/页（4K）
-- 转场视频：~3-5MB/段（1080p，5 秒）
-- 完整视频：~12-20MB（5 页 PPT + 转场）
+**Kling AI (video generation):**
+- Mode: professional
+- Duration: 5 seconds
+- Resolution: 1920x1080
+- Frame rate: 24fps
 
-## 📁 文件组织
+**FFmpeg (video composition):**
+- Encoding: H.264
+- Quality: CRF 23
+- Frame rate: 24fps (normalized)
+- Resolution: 1920x1080 (normalized)
 
-### 输出目录结构
+### Performance Metrics
 
-**仅图片模式：**
+**Generation speed:**
+- PPT images: ~30s/slide (2K) | ~60s/slide (4K)
+- Transition videos: ~30–60s/segment
+- Video composition: ~5–10s
+
+**File size:**
+- PPT images: ~2.5MB/slide (2K) | ~8MB/slide (4K)
+- Transition videos: ~3–5MB/segment (1080p, 5 seconds)
+- Full video: ~12–20MB (5-slide PPT + transitions)
+
+## 📁 File Organization
+
+### Output Directory Structure
+
+**Image-only mode:**
 ```
 outputs/20260112_143022/
 ├── images/
 │   ├── slide-01.png
 │   ├── slide-02.png
 │   └── ...
-├── index.html          # 图片播放器
-└── prompts.json        # 提示词记录
+├── index.html          # Image player
+└── prompts.json        # Prompt log
 ```
 
-**视频模式：**
+**Video mode:**
 ```
 outputs/20260112_143022_video/
 ├── videos/
-│   ├── preview.mp4              # 首页循环预览
+│   ├── preview.mp4              # Cover loop preview
 │   ├── transition_01_to_02.mp4
 │   ├── transition_02_to_03.mp4
 │   └── ...
-├── video_index.html             # 交互式播放器
-└── full_ppt_video.mp4           # 完整视频
+├── video_index.html             # Interactive player
+└── full_ppt_video.mp4           # Full video
 ```
 
-## 🎯 最佳实践
+## 🎯 Best Practices
 
-1. **文档质量**：输入文档内容越清晰结构化，生成的 PPT 质量越高
-2. **页数选择**：根据文档长度和演示场景合理选择页数
-3. **分辨率选择**：日常使用推荐 2K，重要展示场合可选 4K
-4. **视频功能**：首次使用建议先尝试仅图片模式，熟悉后再使用视频功能
-5. **提示词调整**：查看 `prompts.json` 了解生成逻辑，可手动调整后重新生成
+1. **Document quality**: the clearer and more structured the input document, the higher the PPT quality
+2. **Slide count**: choose an appropriate count based on document length and presentation context
+3. **Resolution**: 2K recommended for everyday use; 4K for important showcases
+4. **Video features**: try image-only mode first, then explore video features once you're familiar
+5. **Prompt adjustment**: check `prompts.json` to understand the generation logic; you can manually adjust and regenerate
 
-## 📝 使用示例
+## 📝 Usage Examples
 
-### 示例 1: 快速生成
+### Example 1: Quick Generation
 
-**用户输入：**
+**User input:**
 ```
-我需要基于这份会议纪要生成一个 5 页的 PPT，使用矢量插画风格。
+I need a 5-page PPT from this meeting minutes using the vector illustration style.
 
-会议主题：Q1 产品路线图规划
-参与人：产品团队
+Meeting theme: Q1 Product Roadmap Planning
+Participants: Product team
 
-讨论内容：
-1. 用户反馈汇总
-2. 新功能优先级
-3. 技术可行性评估
-4. Q1 里程碑
-5. 下一步行动项
-```
-
-**Skill 执行：**
-1. 收集输入（已提供内容）
-2. 确认风格（矢量插画）
-3. 确认页数（5 页）
-4. 确认分辨率（询问用户）
-5. 生成 slides_plan.json
-6. 执行生成命令
-7. 返回结果
-
-### 示例 2: 完整流程
-
-**用户输入：**
-```
-基于 AI-Product-Design.md 文档，生成一个 15 页的 PPT，使用渐变毛玻璃风格，需要转场视频。
+Discussion topics:
+1. User feedback summary
+2. New feature priorities
+3. Technical feasibility assessment
+4. Q1 milestones
+5. Next action items
 ```
 
-**Skill 执行：**
-1. 读取文档内容
-2. 确认风格（渐变毛玻璃）
-3. 确认页数（15 页）
-4. 确认分辨率（询问用户）
-5. 确认生成视频（是）
-6. 分析文档，规划 15 页内容
-7. 生成 slides_plan.json
-8. 生成 PPT 图片
-9. 生成转场视频
-10. 合成完整视频
-11. 返回所有结果
+**Skill execution:**
+1. Collect input (content already provided)
+2. Confirm style (vector illustration)
+3. Confirm slide count (5 slides)
+4. Confirm resolution (ask user)
+5. Generate slides_plan.json
+6. Run generation command
+7. Return results
 
-## 🔄 更新日志
+### Example 2: Full Workflow
+
+**User input:**
+```
+Based on the AI-Product-Design.md document, generate a 15-page PPT using the gradient glass style with transition videos.
+```
+
+**Skill execution:**
+1. Read document content
+2. Confirm style (gradient glassmorphism)
+3. Confirm slide count (15 slides)
+4. Confirm resolution (ask user)
+5. Confirm video generation (yes)
+6. Analyze document, plan 15-slide content
+7. Generate slides_plan.json
+8. Generate PPT images
+9. Generate transition videos
+10. Compose full video
+11. Return all results
+
+## 🔄 Changelog
 
 ### v2.0.0 (2026-01-12)
 
-- 🎬 **新增视频功能**
-  - 可灵 AI 转场视频生成
-  - 交互式视频播放器
-  - FFmpeg 完整视频合成
-  - 首页循环预览视频
-- 🔧 **优化视频合成**
-  - 自动统一分辨率和帧率
-  - 修复视频拼接兼容性问题
-  - 静态图片展示时间改为 2 秒
-- 🔑 **改进环境变量**
-  - 智能查找 .env 文件
-  - 支持多种部署模式
-  - 自动向上查找项目根目录
-- 📚 **文档完善**
-  - 重命名为 SKILL.md（符合官方规范）
-  - 更新所有路径和命令
-  - 添加视频功能使用指南
+- 🎬 **New video features**
+  - Kling AI transition video generation
+  - Interactive video player
+  - FFmpeg full video composition
+  - Cover loop preview video
+- 🔧 **Video composition improvements**
+  - Auto-normalize resolution and frame rate
+  - Fix video concatenation compatibility issues
+  - Static slide display time changed to 2 seconds
+- 🔑 **Improved environment variable handling**
+  - Intelligent .env file search
+  - Support for multiple deployment modes
+  - Auto search up to project root directory
+- 📚 **Documentation improvements**
+  - Renamed to SKILL.md (following official naming convention)
+  - Updated all paths and commands
+  - Added video feature usage guide
 
 ### v1.0.0 (2026-01-09)
 
-- ✨ 首次发布
-- 🎨 内置 2 种专业风格
-- 🖼️ 支持 2K/4K 分辨率
-- 🎬 HTML5 图片播放器
-- 📊 智能文档分析
+- ✨ Initial release
+- 🎨 2 built-in professional styles
+- 🖼️ 2K/4K resolution support
+- 🎬 HTML5 image player
+- 📊 Intelligent document analysis
 
-## 📄 许可证
+## 📄 License
 
 MIT License
 
-## 📞 技术支持
+## 📞 Support
 
-- 项目架构：参见 `ARCHITECTURE.md`
-- API 管理：参见 `API_MANAGEMENT.md`
-- 环境配置：参见 `ENV_SETUP.md`
-- 安全说明：参见 `SECURITY.md`
-- 完整文档：参见 `README.md`
+- Project architecture: see `ARCHITECTURE.md`
+- API management: see `API_MANAGEMENT.md`
+- Environment configuration: see `ENV_SETUP.md`
+- Security notes: see `SECURITY.md`
+- Complete documentation: see `README.md`

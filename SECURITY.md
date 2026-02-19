@@ -1,226 +1,226 @@
-# Git提交安全检查清单
+# Git Commit Security Checklist
 
-## ✅ 已配置的安全措施
+## ✅ Security Measures Already Configured
 
-### 1. .gitignore 配置 ✓
+### 1. .gitignore Configuration ✓
 
-以下敏感文件和目录已被正确忽略，**不会被提交到GitHub**：
-
-```
-✓ .env                  # API密钥配置文件
-✓ venv/                 # Python虚拟环境
-✓ outputs/              # 生成的PPT图片
-✓ *.key, *.pem          # 其他密钥文件
-✓ .DS_Store             # macOS系统文件
-✓ __pycache__/          # Python缓存
-✓ test_*.json           # 测试文件
-```
-
-### 2. 安全的环境变量管理 ✓
-
-**之前的问题（已修复）**：
-- ❌ `run.sh` 中硬编码了API密钥
-
-**当前方案**：
-- ✅ API密钥存储在 `.env` 文件中
-- ✅ `.env` 已添加到 `.gitignore`
-- ✅ `run.sh` 从 `.env` 文件读取密钥
-- ✅ 提供 `.env.example` 作为配置模板
-
-### 3. 会被提交的文件清单 ✓
-
-以下文件是安全的，**可以提交**到GitHub：
+The following sensitive files and directories are correctly ignored and **will NOT be committed to GitHub**:
 
 ```
-✓ .env.example          # 环境变量模板（不含真实密钥）
-✓ .gitignore            # Git忽略规则
-✓ README.md             # 项目说明
-✓ QUICKSTART.md         # 快速开始指南
-✓ SETUP_COMPLETE.md     # 配置完成说明
-✓ generate_ppt.py       # Python生成脚本
-✓ ppt-generator.md      # Skill定义
-✓ run.sh                # 启动脚本（已修复，不含密钥）
-✓ styles/*.md           # 风格定义文件
-✓ templates/*.html      # HTML模板
+✓ .env                  # API key configuration file
+✓ venv/                 # Python virtual environment
+✓ outputs/              # Generated PPT images
+✓ *.key, *.pem          # Other key files
+✓ .DS_Store             # macOS system files
+✓ __pycache__/          # Python cache
+✓ test_*.json           # Test files
 ```
 
-## 🔒 提交前安全检查步骤
+### 2. Secure Environment Variable Management ✓
 
-### 步骤1: 验证敏感文件被忽略
+**Previous issue (now fixed):**
+- ❌ API keys were hardcoded in `run.sh`
+
+**Current approach:**
+- ✅ API keys stored in the `.env` file
+- ✅ `.env` added to `.gitignore`
+- ✅ `run.sh` reads keys from `.env`
+- ✅ `.env.example` provided as a configuration template
+
+### 3. List of Files That Will Be Committed ✓
+
+The following files are safe and **can be committed** to GitHub:
+
+```
+✓ .env.example          # Environment variable template (no real keys)
+✓ .gitignore            # Git ignore rules
+✓ README.md             # Project documentation
+✓ QUICKSTART.md         # Quick start guide
+✓ SETUP_COMPLETE.md     # Setup completion notes
+✓ generate_ppt.py       # Python generation script
+✓ ppt-generator.md      # Skill definition
+✓ run.sh                # Startup script (fixed, no hardcoded keys)
+✓ styles/*.md           # Style definition files
+✓ templates/*.html      # HTML templates
+```
+
+## 🔒 Pre-Commit Security Steps
+
+### Step 1: Verify Sensitive Files Are Ignored
 
 ```bash
-# 检查 .env 是否被忽略
+# Check if .env is ignored
 git check-ignore -v .env
-# 应输出: .gitignore:15:.env	.env
+# Expected output: .gitignore:15:.env	.env
 
-# 检查哪些文件会被提交（模拟）
+# Simulate which files would be staged
 git add -n .
-# 确认列表中没有 .env 文件
+# Confirm .env is not in the list
 ```
 
-### 步骤2: 搜索代码中的密钥
+### Step 2: Search Code for Keys
 
 ```bash
-# 搜索可能的API密钥
+# Search for possible API keys
 grep -r "AIzaSy" --exclude-dir=.git --exclude-dir=venv --exclude-dir=outputs .
 
-# 如果只在 .env 中找到，说明安全 ✓
-# 如果在其他文件中找到，需要删除 ✗
+# If found only in .env, you're safe ✓
+# If found in any other file, remove it ✗
 ```
 
-### 步骤3: 检查Git历史
+### Step 3: Check Git History
 
 ```bash
-# 如果您之前有提交，检查历史中是否包含密钥
+# If you've committed before, check if history contains keys
 git log --all --full-history --source -- .env
 
-# 如果有输出，说明 .env 曾被提交，需要清理历史
+# If there's output, .env was once committed — history needs to be cleaned
 ```
 
-## 📋 安全的Git工作流
+## 📋 Secure Git Workflow
 
-### 首次提交
+### Initial Commit
 
 ```bash
-# 1. 初始化Git仓库（如果还没有）
+# 1. Initialize Git repo (if not already done)
 git init
 
-# 2. 验证 .gitignore 正常工作
+# 2. Verify .gitignore is working
 git status
-# 确认 .env、venv/、outputs/ 不在列表中
+# Confirm .env, venv/, outputs/ are NOT in the list
 
-# 3. 添加所有安全文件
+# 3. Add all safe files
 git add .
 
-# 4. 再次检查暂存区
+# 4. Check the staging area again
 git status
-# 确认没有敏感文件
+# Confirm no sensitive files are staged
 
-# 5. 提交
+# 5. Commit
 git commit -m "Initial commit: PPT Generator"
 
-# 6. 关联远程仓库
-git remote add origin https://github.com/你的用户名/ppt-generator.git
+# 6. Link remote repository
+git remote add origin https://github.com/your-username/ppt-generator.git
 
-# 7. 推送
+# 7. Push
 git push -u origin main
 ```
 
-### 日常提交
+### Everyday Commits
 
 ```bash
-# 1. 查看改动
+# 1. Check changes
 git status
 
-# 2. 添加文件
+# 2. Stage files
 git add .
 
-# 3. 提交
-git commit -m "描述您的改动"
+# 3. Commit
+git commit -m "Describe your changes"
 
-# 4. 推送
+# 4. Push
 git push
 ```
 
-## 🚨 如果密钥已经被提交
+## 🚨 If Keys Were Already Committed
 
-### 紧急处理步骤
+### Emergency Steps
 
-如果您不小心提交了包含密钥的文件，请立即：
+If you accidentally committed a file containing keys, immediately:
 
-**1. 立即撤销密钥**
+**1. Revoke the key immediately**
 ```bash
-# 访问 https://makersuite.google.com/app/apikey
-# 删除或重新生成API密钥
+# Visit https://makersuite.google.com/app/apikey
+# Delete or regenerate the API key
 ```
 
-**2. 从Git历史中删除敏感信息**
+**2. Remove sensitive information from Git history**
 ```bash
-# 使用 git filter-branch 或 BFG Repo-Cleaner
-# 删除历史记录中的敏感文件
+# Use git filter-branch or BFG Repo-Cleaner
+# to delete sensitive files from history
 
-# 简单方法（会重写所有历史）
+# Simple method (rewrites all history)
 git filter-branch --force --index-filter \
   "git rm --cached --ignore-unmatch .env" \
   --prune-empty --tag-name-filter cat -- --all
 
-# 强制推送（慎用！）
+# Force push (use with caution!)
 git push origin --force --all
 ```
 
-**3. 通知GitHub**
+**3. Notify GitHub**
 ```bash
-# 如果仓库是公开的，考虑删除整个仓库重新创建
-# 或者使用GitHub的密钥扫描功能检测
+# If the repo is public, consider deleting and recreating it
+# Or use GitHub's secret scanning feature to detect exposure
 ```
 
-## ✅ 安全检查清单总结
+## ✅ Security Checklist Summary
 
-提交到GitHub前，确认以下所有项目：
+Before committing to GitHub, confirm all of the following:
 
-- [ ] `.env` 文件在 `.gitignore` 中
-- [ ] `run.sh` 不包含硬编码的密钥
-- [ ] 运行 `git status` 确认没有敏感文件
-- [ ] 运行 `grep -r "AIzaSy" .` 确认密钥只在 `.env` 中
-- [ ] `.env.example` 只包含模板，不包含真实密钥
-- [ ] `outputs/` 目录被忽略（避免提交大量图片）
-- [ ] `venv/` 目录被忽略（避免提交依赖包）
+- [ ] `.env` file is in `.gitignore`
+- [ ] `run.sh` contains no hardcoded keys
+- [ ] Running `git status` shows no sensitive files
+- [ ] Running `grep -r "AIzaSy" .` confirms keys are only in `.env`
+- [ ] `.env.example` contains only a template, no real keys
+- [ ] `outputs/` directory is ignored (avoids committing large images)
+- [ ] `venv/` directory is ignored (avoids committing dependencies)
 
-## 📝 .env.example 使用说明
+## 📝 How to Use .env.example
 
-**给其他协作者的说明**：
+**Instructions for collaborators:**
 
-1. 克隆仓库后，复制 `.env.example` 为 `.env`：
+1. After cloning the repo, copy `.env.example` to `.env`:
    ```bash
    cp .env.example .env
    ```
 
-2. 编辑 `.env`，填入自己的API密钥：
+2. Edit `.env` and fill in your own API key:
    ```bash
-   GEMINI_API_KEY=你的实际密钥
+   GEMINI_API_KEY=your-actual-key-here
    ```
 
-3. `.env` 文件会被Git忽略，不用担心提交
+3. The `.env` file will be ignored by Git — no risk of committing it.
 
-## 🔐 最佳实践
+## 🔐 Best Practices
 
 ### DO ✓
 
-- ✓ 使用 `.env` 文件存储密钥
-- ✓ 将 `.env` 添加到 `.gitignore`
-- ✓ 提供 `.env.example` 作为模板
-- ✓ 定期轮换API密钥
-- ✓ 使用环境变量而非硬编码
-- ✓ 提交前运行 `git status` 检查
+- ✓ Store keys in a `.env` file
+- ✓ Add `.env` to `.gitignore`
+- ✓ Provide `.env.example` as a template
+- ✓ Rotate API keys regularly
+- ✓ Use environment variables instead of hardcoding
+- ✓ Run `git status` before committing
 
 ### DON'T ✗
 
-- ✗ 在代码中硬编码密钥
-- ✗ 将 `.env` 提交到Git
-- ✗ 在公共仓库中存储密钥
-- ✗ 在 README 中包含真实密钥
-- ✗ 通过邮件或聊天发送密钥
-- ✗ 使用同一密钥在多个项目
+- ✗ Hardcode keys in code
+- ✗ Commit `.env` to Git
+- ✗ Store keys in public repositories
+- ✗ Include real keys in README
+- ✗ Send keys via email or chat
+- ✗ Use the same key across multiple projects
 
-## 🛡️ 额外安全建议
+## 🛡️ Additional Security Recommendations
 
-1. **使用GitHub Secrets**（如果使用GitHub Actions）
-   - 在仓库设置中添加密钥
-   - 在工作流中通过 `${{ secrets.GEMINI_API_KEY }}` 使用
+1. **Use GitHub Secrets** (if using GitHub Actions)
+   - Add secrets in repository settings
+   - Use them in workflows via `${{ secrets.GEMINI_API_KEY }}`
 
-2. **限制API密钥权限**
-   - 只授予必要的API权限
-   - 设置API配额限制
+2. **Restrict API key permissions**
+   - Grant only the necessary permissions
+   - Set API quota limits
 
-3. **监控API使用**
-   - 定期检查API使用情况
-   - 发现异常立即撤销密钥
+3. **Monitor API usage**
+   - Check API usage regularly
+   - Revoke the key immediately if anomalies are detected
 
-4. **使用密钥管理服务**（生产环境）
+4. **Use a secrets management service** (for production)
    - AWS Secrets Manager
    - HashiCorp Vault
    - Azure Key Vault
 
 ---
 
-**当前状态**: ✅ 您的项目已正确配置，可以安全提交到GitHub！
+**Current Status**: ✅ Your project is correctly configured and safe to commit to GitHub!

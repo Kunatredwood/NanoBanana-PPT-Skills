@@ -1,82 +1,82 @@
-# README 视频演示添加方案
+# README Video Demo Options
 
-## 方案选择建议
+## Recommended Approach Comparison
 
-### 🎯 推荐方案对比
+### 🎯 Comparison of Options
 
-| 方案 | 文件大小限制 | 国内访问 | 国外访问 | 自动播放 | 维护成本 |
-|------|------------|----------|----------|----------|---------|
-| **GIF 动图** | 建议 < 10MB | ✅ 快 | ✅ 快 | ✅ 是 | ⭐ 低 |
-| **GitHub 仓库视频** | < 100MB | ⚠️ 慢 | ✅ 快 | ❌ 否 | ⭐ 低 |
-| **Bilibili** | 无限制 | ✅ 快 | ⚠️ 慢 | ❌ 否 | ⭐⭐ 中 |
-| **GitHub + Bilibili** | - | ✅ 快 | ✅ 快 | ❌ 否 | ⭐⭐ 中 |
-| **Cloudinary** | 25GB 免费 | ✅ 快 | ✅ 快 | ❌ 否 | ⭐⭐⭐ 高 |
+| Option | File Size Limit | Domestic Access | International Access | Auto-play | Maintenance |
+|--------|----------------|-----------------|----------------------|-----------|-------------|
+| **Animated GIF** | Recommended < 10MB | ✅ Fast | ✅ Fast | ✅ Yes | ⭐ Low |
+| **GitHub repo video** | < 100MB | ⚠️ Slow | ✅ Fast | ❌ No | ⭐ Low |
+| **Bilibili** | Unlimited | ✅ Fast | ⚠️ Slow | ❌ No | ⭐⭐ Medium |
+| **GitHub + Bilibili** | — | ✅ Fast | ✅ Fast | ❌ No | ⭐⭐ Medium |
+| **Cloudinary** | 25GB free | ✅ Fast | ✅ Fast | ❌ No | ⭐⭐⭐ High |
 
-### 💡 具体建议
+### 💡 Specific Recommendations
 
-**对于你的项目（NanoBanana PPT Skills）**，我推荐：
+**For your project (NanoBanana PPT Skills), I recommend:**
 
-1. **首选：GIF 动图** - 如果能压缩到 5-10MB 以内
-   - 最佳用户体验，自动播放
-   - 适合展示 10-20 秒核心功能演示
+1. **First choice: Animated GIF** — if you can compress it to 5–10MB
+   - Best user experience, auto-plays
+   - Ideal for a 10–20 second highlight demo
 
-2. **备选：GitHub 仓库 + Bilibili 双链接**
-   - GitHub 放短视频（< 50MB）展示核心功能
-   - Bilibili 放完整演示（带讲解）
-   - 照顾国内外用户
+2. **Alternative: GitHub repo + Bilibili dual links**
+   - GitHub hosts a short video (< 50MB) for core feature demo
+   - Bilibili hosts the full walkthrough (with narration)
+   - Serves both domestic and international users
 
 ---
 
-## Markdown 代码示例
+## Markdown Code Examples
 
-### 方案 1: GIF 动图（推荐）
+### Option 1: Animated GIF (recommended)
 
-在 README.md 第 15 行（`</div>` 之后）添加：
+Add the following after line 15 of README.md (after `</div>`):
 
 ```markdown
 </div>
 
 ---
 
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
 ![NanoBanana PPT Skills Demo](demo.gif)
 
-*AI 自动生成 PPT 并添加流畅转场动画*
+*AI-generated PPT with smooth transition animations*
 
 </div>
 
 ---
 ```
 
-**或者使用 HTML 标签控制大小：**
+**Or use an HTML tag to control the size:**
 
 ```markdown
 <div align="center">
   <img src="demo.gif" alt="NanoBanana PPT Skills Demo" width="800">
-  <p><em>AI 自动生成 PPT 并添加流畅转场动画</em></p>
+  <p><em>AI-generated PPT with smooth transition animations</em></p>
 </div>
 ```
 
 ---
 
-### 方案 2: GitHub 仓库视频（< 100MB）
+### Option 2: GitHub Repository Video (< 100MB)
 
 ```markdown
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
 https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/demo.mp4
 
-*点击播放查看完整演示*
+*Click to play the full demo*
 
 </div>
 ```
 
-**或使用 HTML5 video 标签（更多控制）：**
+**Or use an HTML5 video tag for more control:**
 
 ```markdown
 <div align="center">
@@ -85,48 +85,48 @@ https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/demo.mp4
          controls
          loop
          muted>
-    您的浏览器不支持视频播放
+    Your browser does not support video playback.
   </video>
-  <p><em>AI 自动生成 PPT 并添加流畅转场动画</em></p>
+  <p><em>AI-generated PPT with smooth transition animations</em></p>
 </div>
 ```
 
 ---
 
-### 方案 3: Bilibili 嵌入
+### Option 3: Bilibili Embed
 
 ```markdown
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
 [![Watch Demo on Bilibili](https://i0.hdslb.com/bfs/archive/VIDEO_COVER.jpg)](https://www.bilibili.com/video/BVXXXXXXX)
 
-**🎥 [点击观看完整演示视频（Bilibili）](https://www.bilibili.com/video/BVXXXXXXX)**
+**🎥 [Watch Full Demo (Bilibili)](https://www.bilibili.com/video/BVXXXXXXX)**
 
-*包含详细功能讲解和使用教程*
+*Includes detailed feature walkthrough and usage tutorial*
 
 </div>
 ```
 
 ---
 
-### 方案 4: GitHub + Bilibili 双托管（推荐给你的最佳方案）
+### Option 4: GitHub + Bilibili Dual Hosting (best option for your project)
 
 ```markdown
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
-### 快速预览（30秒）
+### Quick Preview (30 seconds)
 
 https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/demo-short.mp4
 
-### 完整教程
+### Full Tutorial
 
-**🎥 [观看完整演示视频（Bilibili 5分钟）](https://www.bilibili.com/video/BVXXXXXXX)** - 包含详细功能讲解
+**🎥 [Watch Full Demo (Bilibili, 5 min)](https://www.bilibili.com/video/BVXXXXXXX)** — detailed feature walkthrough
 
-**🌍 [Watch Full Demo (YouTube 5min)](https://youtube.com/watch?v=XXXXXXXXX)** - English subtitles available
+**🌍 [Watch Full Demo (YouTube, 5 min)](https://youtube.com/watch?v=XXXXXXXXX)** — English subtitles available
 
 </div>
 
@@ -135,10 +135,10 @@ https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/demo-short.m
 
 ---
 
-### 方案 5: Cloudinary 托管
+### Option 5: Cloudinary Hosting
 
 ```markdown
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
@@ -151,33 +151,33 @@ https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/demo-short.m
   poster="https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/v1234567890/demo-poster.jpg">
 </video>
 
-*AI 自动生成 PPT 并添加流畅转场动画*
+*AI-generated PPT with smooth transition animations*
 
 </div>
 ```
 
 ---
 
-### 方案 6: 多种演示方式组合（完整版）
+### Option 6: Combined Demo Formats (full version)
 
 ```markdown
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
-### 🎨 渐变毛玻璃风格演示
+### 🎨 Gradient Glass Style Demo
 
 ![Gradient Glass Style Demo](demos/gradient-glass-demo.gif)
 
-### 🎞️ 完整 PPT 生成流程
+### 🎞️ Full PPT Generation Workflow
 
 https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/full-demo.mp4
 
-### 📺 详细教程视频
+### 📺 Full Tutorial Videos
 
-| 平台 | 链接 | 时长 | 说明 |
-|------|------|------|------|
-| 🎬 **Bilibili** | [观看教程](https://bilibili.com/video/BVXXXX) | 5:30 | 中文讲解，包含安装和使用 |
+| Platform | Link | Duration | Description |
+|----------|------|----------|-------------|
+| 🎬 **Bilibili** | [Watch Tutorial](https://bilibili.com/video/BVXXXX) | 5:30 | Chinese narration, includes installation and usage |
 | 🌏 **YouTube** | [Watch Tutorial](https://youtube.com/watch?v=XXXX) | 5:30 | English subtitles |
 
 </div>
@@ -187,29 +187,29 @@ https://github.com/op7418/NanoBanana-PPT-Skills/assets/YOUR_USER_ID/full-demo.mp
 
 ---
 
-## 具体操作步骤
+## Step-by-Step Instructions
 
-### 如果选择 GIF 方案：
+### If You Choose the GIF Option:
 
-1. **生成 GIF**（推荐 10-20 秒精华片段）：
+1. **Generate the GIF** (recommended: 10–20 second highlight clip):
 
 ```bash
 cd /Users/guohao/Documents/code/ppt/ppt-generator
 
-# 方法1：完整视频转 GIF（会很大）
+# Method 1: Convert full video to GIF (will be large)
 ffmpeg -i outputs/20260112_135018_video/full_ppt_video.mp4 \
   -vf "fps=10,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
   -loop 0 \
   demo.gif
 
-# 方法2：截取前 20 秒（推荐）
+# Method 2: Trim to first 20 seconds (recommended)
 ffmpeg -i outputs/20260112_135018_video/full_ppt_video.mp4 \
   -t 20 \
   -vf "fps=10,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
   -loop 0 \
   demo.gif
 
-# 方法3：超压缩版（如果文件太大）
+# Method 3: Ultra-compressed version (if file is too large)
 ffmpeg -i outputs/20260112_135018_video/full_ppt_video.mp4 \
   -t 15 \
   -vf "fps=8,scale=600:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer" \
@@ -217,57 +217,57 @@ ffmpeg -i outputs/20260112_135018_video/full_ppt_video.mp4 \
   demo-compressed.gif
 ```
 
-2. **检查文件大小**：
+2. **Check the file size**:
 ```bash
 ls -lh demo.gif
-# 建议控制在 5-10MB 以内
+# Aim for 5–10MB or less
 ```
 
-3. **放到仓库根目录**：
+3. **Place it in the repo root**:
 ```bash
-# 将 GIF 移动到仓库根目录
+# Move the GIF to the repo root
 mv demo.gif /Users/guohao/Documents/code/ppt/ppt-generator/
 
-# 添加到 git
+# Add to git
 git add demo.gif
 ```
 
-### 如果选择 GitHub 视频方案：
+### If You Choose the GitHub Video Option:
 
-1. **压缩视频**（必须 < 100MB）：
+1. **Compress the video** (must be < 100MB):
 
 ```bash
-# 压缩到 1080p, 5Mbps 码率
+# Compress to 1080p, 5Mbps bitrate
 ffmpeg -i outputs/20260112_135018_video/full_ppt_video.mp4 \
   -vf "scale=1920:1080:force_original_aspect_ratio=decrease" \
   -c:v libx264 -b:v 5M -maxrate 5M -bufsize 10M \
   -c:a aac -b:a 128k \
   demo-compressed.mp4
 
-# 检查大小
+# Check size
 ls -lh demo-compressed.mp4
 ```
 
-2. **上传到 GitHub**：
-   - 直接在 GitHub 仓库的 Issue 或 Pull Request 中拖拽视频上传
-   - 复制生成的 URL（类似 `https://github.com/user/repo/assets/12345/video.mp4`）
-   - 在 README 中使用这个 URL
+2. **Upload to GitHub**:
+   - Drag and drop the video into a GitHub Issue or Pull Request
+   - Copy the generated URL (e.g., `https://github.com/user/repo/assets/12345/video.mp4`)
+   - Use that URL in the README
 
-### 如果选择 Bilibili 方案：
+### If You Choose the Bilibili Option:
 
-1. 录制完整演示（带讲解）
-2. 上传到 Bilibili，设置封面
-3. 复制视频链接（BV号）
-4. 在 README 中使用
+1. Record a full demo (with narration)
+2. Upload to Bilibili, set a cover image
+3. Copy the video link (BV number)
+4. Use it in the README
 
 ---
 
-## 推荐的完整布局
+## Recommended Full Layout
 
 ```markdown
 # NanoBanana PPT Skills
 
-> 基于 AI 自动生成高质量 PPT 图片和视频的强大工具，支持智能转场和交互式播放
+> A powerful AI-driven tool for generating high-quality PPT images and video presentations with smart transitions and an interactive player
 
 <div align="center">
 
@@ -275,68 +275,68 @@ ls -lh demo-compressed.mp4
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Python](https://img.shields.io/badge/python-3.8+-green.svg)
 
-**创作者**: [歸藏](https://github.com/op7418)
+**Creator**: [歸藏](https://github.com/op7418)
 
-[功能特性](#-功能特性) • [效果演示](#-效果演示) • [一键安装](#-一键安装) • [使用指南](#-使用指南)
+[Features](#-features) • [Demo](#-demo) • [One-Click Install](#-one-click-install) • [Usage Guide](#-usage-guide)
 
 </div>
 
 ---
 
-## 🎬 效果演示
+## 🎬 Demo
 
 <div align="center">
 
-### 🎨 自动生成渐变毛玻璃风格 PPT
+### 🎨 Auto-generated Gradient Glass Style PPT
 
 ![Demo](demo.gif)
 
-*从文档分析到转场视频，一键完成*
+*From document analysis to transition video — one click*
 
-### 📺 完整教程
+### 📺 Full Tutorial
 
-**🎥 [观看详细教程（Bilibili 5分钟）](https://bilibili.com/video/BVXXXX)** - 包含安装和使用说明
+**🎥 [Watch Detailed Tutorial (Bilibili, 5 min)](https://bilibili.com/video/BVXXXX)** — includes installation and usage instructions
 
 </div>
 
 ---
 
-## 📖 简介
+## 📖 Introduction
 
 ...
 ```
 
 ---
 
-## 我的最终建议
+## My Final Recommendation
 
-**对于你的项目，推荐这样做：**
+**For your project, here's what I recommend:**
 
-1. **立即行动**：
-   - 生成一个 15-20 秒的 GIF 动图（展示核心功能）
-   - 放在 README 开头，给用户第一印象
+1. **Immediate action:**
+   - Generate a 15–20 second animated GIF (showcasing the core feature)
+   - Place it at the top of README for a great first impression
 
-2. **后续增强**：
-   - 录制一个 3-5 分钟的完整演示视频
-   - 上传到 Bilibili（中文讲解）
-   - 在 README 中提供链接
+2. **Follow-up enhancement:**
+   - Record a 3–5 minute full demo video
+   - Upload to Bilibili (with Chinese narration)
+   - Add a link in the README
 
-3. **README 结构**：
+3. **README structure:**
 ```
-标题 + Badges
+Title + Badges
     ↓
-导航链接（添加"效果演示"）
+Navigation links (add "Demo")
     ↓
-🎬 效果演示（GIF 自动播放）
+🎬 Demo (GIF, auto-plays)
     ↓
-完整教程链接（Bilibili/YouTube）
+Full tutorial link (Bilibili/YouTube)
     ↓
-简介
+Introduction
     ↓
-其他内容...
+Other content...
 ```
 
-需要我帮你执行具体操作吗？比如：
-1. 生成优化的 GIF
-2. 压缩视频到 < 100MB
-3. 修改 README 添加演示区域
+Want me to help you execute any of these steps, such as:
+1. Generate an optimized GIF
+2. Compress the video to < 100MB
+3. Update the README to add a demo section

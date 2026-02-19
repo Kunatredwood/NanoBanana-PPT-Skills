@@ -1,123 +1,123 @@
-# 系统环境变量配置指南
+# System Environment Variable Configuration Guide
 
-## ✅ 当前配置状态
+## ✅ Current Configuration Status
 
-您的项目现在使用**系统环境变量**来管理API密钥，这是最安全的方案！
+Your project now uses **system environment variables** to manage API keys — the most secure approach!
 
-### 🎯 优势对比
+### 🎯 Comparison of Approaches
 
-| 方案 | 安全性 | 便利性 | Git安全 |
-|------|--------|--------|---------|
-| 硬编码 | ❌ 极低 | ✓ 方便 | ❌ 会泄露 |
-| .env文件 | ⚠️ 中等 | ✓ 方便 | ⚠️ 需配置.gitignore |
-| **系统环境变量** | ✅ **高** | ✅ **最方便** | ✅ **完全安全** |
+| Approach | Security | Convenience | Git Safety |
+|----------|----------|-------------|------------|
+| Hardcoded | ❌ Very low | ✓ Convenient | ❌ Will leak |
+| .env file | ⚠️ Medium | ✓ Convenient | ⚠️ Requires .gitignore |
+| **System env vars** | ✅ **High** | ✅ **Most convenient** | ✅ **Fully safe** |
 
-## 📋 已完成的配置
+## 📋 Completed Configuration
 
-### 1. 系统环境变量 ✅
+### 1. System Environment Variables ✅
 
-API密钥已添加到您的 `~/.zshrc` 文件中：
+The API key has been added to your `~/.zshrc`:
 
 ```bash
 # Google AI API Key for PPT Generator
 export GEMINI_API_KEY="your-api-key-here"
 ```
 
-**验证方法**：
+**Verification:**
 ```bash
 echo $GEMINI_API_KEY
-# 应显示您的API密钥
+# Should display your API key
 ```
 
-### 2. run.sh 智能识别 ✅
+### 2. Smart Detection in run.sh ✅
 
-启动脚本已更新，优先级顺序：
-1. **系统环境变量**（最高优先级）✅
-2. .env 文件（备用方案）
+The startup script has been updated with the following priority order:
+1. **System environment variables** (highest priority) ✅
+2. .env file (fallback)
 
-当您运行 `./run.sh` 时，会显示：
+When you run `./run.sh`, it will show:
 ```
-✅ 使用系统环境变量中的API密钥
+✅ Using API key from system environment variables
 ```
 
-### 3. 项目文件清理 ✅
+### 3. Project File Cleanup ✅
 
-- ✅ `.env` 文件已删除
-- ✅ `.env.example` 保留（作为模板）
-- ✅ `run.sh` 不包含硬编码密钥
-- ✅ 所有文档使用占位符
+- ✅ `.env` file has been deleted
+- ✅ `.env.example` retained (as a template)
+- ✅ `run.sh` contains no hardcoded keys
+- ✅ All documentation uses placeholders
 
-## 🔐 Git提交安全性
+## 🔐 Git Commit Safety
 
-### 现在提交到GitHub，绝对安全！
+### Committing to GitHub is now completely safe!
 
-**不会被提交的内容**：
-- ❌ API密钥（存储在系统环境变量中）
-- ❌ `.env` 文件（已删除且在.gitignore中）
-- ❌ 虚拟环境（venv/）
-- ❌ 输出文件（outputs/）
+**What will NOT be committed:**
+- ❌ API keys (stored in system environment variables)
+- ❌ `.env` file (deleted and in .gitignore)
+- ❌ Virtual environment (venv/)
+- ❌ Output files (outputs/)
 
-**会被提交的内容（全部安全）**：
-- ✅ `.env.example` - 仅包含模板
-- ✅ `.gitignore` - Git忽略规则
-- ✅ `run.sh` - 从环境变量读取密钥
-- ✅ `generate_ppt.py` - Python脚本
-- ✅ 所有文档和风格文件
+**What WILL be committed (all safe):**
+- ✅ `.env.example` - contains only a template
+- ✅ `.gitignore` - Git ignore rules
+- ✅ `run.sh` - reads keys from environment variables
+- ✅ `generate_ppt.py` - Python script
+- ✅ All documentation and style files
 
-### 验证命令
+### Verification Commands
 
 ```bash
-# 搜索项目中的API密钥
+# Search for API keys in the project
 grep -r "AIzaSy" --exclude-dir=.git --exclude-dir=venv .
 
-# 应该没有任何输出！✅
+# Should produce no output! ✅
 ```
 
-## 🚀 使用方法
+## 🚀 Usage
 
-### 在当前项目中使用
+### In the Current Project
 
-直接运行即可，会自动使用系统环境变量：
+Run directly — system environment variables will be used automatically:
 
 ```bash
 ./run.sh --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-输出显示：
+Output will show:
 ```
-✅ 使用系统环境变量中的API密钥
+✅ Using API key from system environment variables
 ```
 
-### 在其他机器上使用
+### On a New Machine
 
-当您在新机器上克隆项目时：
+When you clone the project on a new machine:
 
-**步骤1**: 克隆仓库
+**Step 1**: Clone the repository
 ```bash
-git clone https://github.com/你的用户名/ppt-generator.git
+git clone https://github.com/your-username/ppt-generator.git
 cd ppt-generator
 ```
 
-**步骤2**: 配置环境变量（根据Shell选择）
+**Step 2**: Configure environment variables (choose by shell)
 
-**zsh用户**（推荐）：
+**zsh users (recommended):**
 ```bash
 echo 'export GEMINI_API_KEY="your-api-key"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-**bash用户**：
+**bash users:**
 ```bash
 echo 'export GEMINI_API_KEY="your-api-key"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**fish用户**：
+**fish users:**
 ```bash
 set -Ux GEMINI_API_KEY "your-api-key"
 ```
 
-**步骤3**: 安装依赖并运行
+**Step 3**: Install dependencies and run
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -125,121 +125,121 @@ pip install google-genai pillow
 ./run.sh --help
 ```
 
-## 🔄 管理API密钥
+## 🔄 Managing API Keys
 
-### 查看当前密钥
+### View Current Key
 
 ```bash
 echo $GEMINI_API_KEY
 ```
 
-### 临时修改密钥（当前会话）
+### Temporarily Change Key (current session only)
 
 ```bash
 export GEMINI_API_KEY="new-key-here"
 ```
 
-### 永久修改密钥
+### Permanently Change Key
 
-编辑配置文件：
+Edit the config file:
 ```bash
-nano ~/.zshrc  # 或使用你喜欢的编辑器
+nano ~/.zshrc  # or your preferred editor
 ```
 
-找到这一行并修改：
+Find and update this line:
 ```bash
-export GEMINI_API_KEY="新的密钥"
+export GEMINI_API_KEY="new-key-here"
 ```
 
-重新加载配置：
+Reload the config:
 ```bash
 source ~/.zshrc
 ```
 
-### 删除密钥
+### Delete Key
 
-编辑 `~/.zshrc`，删除包含 `GEMINI_API_KEY` 的行，然后：
+Edit `~/.zshrc`, remove the line containing `GEMINI_API_KEY`, then:
 ```bash
 source ~/.zshrc
 unset GEMINI_API_KEY
 ```
 
-## 💡 最佳实践
+## 💡 Best Practices
 
-### ✓ 推荐做法
+### ✓ Recommended
 
-1. **使用系统环境变量存储所有密钥**
+1. **Use system environment variables for all keys**
    ```bash
-   # 示例：添加多个API密钥
+   # Example: adding multiple API keys
    export GEMINI_API_KEY="..."
    export OPENAI_API_KEY="..."
    export AWS_ACCESS_KEY="..."
    ```
 
-2. **定期轮换API密钥**
-   - 每3-6个月更新一次
-   - 发现异常使用立即更新
+2. **Rotate API keys regularly**
+   - Every 3–6 months
+   - Immediately if abnormal usage is detected
 
-3. **不同项目使用不同密钥**（可选）
-   - 便于追踪使用情况
-   - 限制单个密钥的影响范围
+3. **Use different keys for different projects** (optional)
+   - Easier to track usage
+   - Limits the blast radius of a single key compromise
 
-4. **备份环境变量配置**
+4. **Back up environment variable configs**
    ```bash
-   # 导出配置（注意安全存储）
+   # Export config (store securely!)
    grep "export.*_KEY" ~/.zshrc > ~/my-env-backup.txt
    ```
 
-### ✗ 避免做法
+### ✗ Avoid
 
-- ❌ 在代码中硬编码密钥
-- ❌ 将 `.zshrc` 提交到Git
-- ❌ 通过邮件发送密钥
-- ❌ 在截图中暴露密钥
-- ❌ 使用同一密钥在多个公共项目
+- ❌ Hardcoding keys in code
+- ❌ Committing `.zshrc` to Git
+- ❌ Sending keys via email
+- ❌ Exposing keys in screenshots
+- ❌ Using the same key across multiple public projects
 
-## 🛡️ 安全检查清单
+## 🛡️ Security Checklist
 
-在提交到GitHub前，确认：
+Before committing to GitHub, confirm:
 
-- [ ] 运行 `grep -r "AIzaSy" .` 无输出
-- [ ] `.env` 文件不存在或已在 .gitignore
-- [ ] `run.sh` 不包含硬编码密钥
-- [ ] 所有文档使用 `your-api-key-here` 占位符
-- [ ] `git status` 不显示敏感文件
-- [ ] `.zshrc` 不在Git仓库中
+- [ ] Running `grep -r "AIzaSy" .` produces no output
+- [ ] `.env` file does not exist or is in .gitignore
+- [ ] `run.sh` contains no hardcoded keys
+- [ ] All documentation uses `your-api-key-here` as placeholder
+- [ ] `git status` shows no sensitive files
+- [ ] `.zshrc` is not in the Git repository
 
-全部✅后，可以安全提交！
+All ✅? You're safe to commit!
 
-## 📊 安全等级对比
+## 📊 Security Level Comparison
 
 ```
 ┌─────────────────────────────────────────────┐
-│ 安全等级：系统环境变量方案                    │
+│ Security Level: System Environment Variables │
 ├─────────────────────────────────────────────┤
 │                                             │
-│  Git泄露风险         ████████████ 0%       │
-│  代码泄露风险         ████████████ 0%       │
-│  文档泄露风险         ████████████ 0%       │
-│  便利性             ████████████ 100%      │
-│  多项目共享          ████████████ 100%      │
+│  Git leak risk          ████████████ 0%    │
+│  Code leak risk         ████████████ 0%    │
+│  Documentation leak     ████████████ 0%    │
+│  Convenience            ████████████ 100%  │
+│  Cross-project sharing  ████████████ 100%  │
 │                                             │
 └─────────────────────────────────────────────┘
 ```
 
-## 🎉 总结
+## 🎉 Summary
 
-您现在拥有最安全的API密钥管理方案：
+You now have the most secure API key management approach:
 
-✅ **API密钥存储在系统环境变量中**
-✅ **项目代码完全不含密钥**
-✅ **可以放心提交到GitHub**
-✅ **跨项目共享同一密钥**
-✅ **新机器配置简单快速**
+✅ **API keys stored in system environment variables**
+✅ **Project code contains absolutely no keys**
+✅ **Safe to commit to GitHub**
+✅ **Share the same key across projects**
+✅ **Simple and fast setup on new machines**
 
 ---
 
-**需要帮助？**
-- 系统环境变量配置问题：查看本文档"管理API密钥"部分
-- Git提交问题：查看 SECURITY.md
-- 项目使用问题：查看 README.md 和 QUICKSTART.md
+**Need help?**
+- System environment variable issues: see the "Managing API Keys" section in this document
+- Git commit issues: see SECURITY.md
+- Project usage issues: see README.md and QUICKSTART.md

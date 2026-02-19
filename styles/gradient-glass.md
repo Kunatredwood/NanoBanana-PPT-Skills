@@ -1,90 +1,90 @@
-# 渐变拟物玻璃卡片风格
+# Gradient Glassmorphism Card Style
 
-## 风格ID
+## Style ID
 gradient-glass
 
-## 风格名称
-渐变拟物玻璃卡片风格
+## Style Name
+Gradient Glassmorphism Card Style
 
-## 适配模型
+## Compatible Models
 - Nano Banana Pro (gemini-3-pro-image-preview)
 - Seedream
 
-## 风格描述
-一套非常漂亮的渐变拟物玻璃卡片风格 PPT，融合了Apple Keynote的极简主义、现代SaaS产品设计和玻璃拟态风格。整体氛围高端、沉浸、洁净且有呼吸感。
+## Style Description
+A beautifully crafted gradient glassmorphism card style for PPT slides, blending Apple Keynote minimalism, modern SaaS product design, and a glassmorphic aesthetic. The overall atmosphere is premium, immersive, clean, and breathable.
 
-## 基础提示词模板
+## Base Prompt Template
 
-你是一位专家级UI UX演示设计师，请生成高保真、未来科技感的16比9演示文稿幻灯片。请根据视觉平衡美学，自动在封面、网格布局或数据可视化中选择一种最完美的构图。
+You are an expert-level UI/UX presentation designer. Generate a high-fidelity, futuristic 16:9 presentation slide. Based on visual balance aesthetics, automatically choose the most perfect composition from among: cover layout, grid layout, or data visualization.
 
-全局视觉语言方面，风格要无缝融合Apple Keynote的极简主义、现代SaaS产品设计和玻璃拟态风格。整体氛围需要高端、沉浸、洁净且有呼吸感。光照采用电影级体积光、柔和的光线追踪反射和环境光遮蔽。配色方案选择深邃的虚空黑或纯净的陶瓷白作为基底，并以流动的极光渐变色即霓虹紫、电光蓝、柔和珊瑚橙、青色作为背景和UI高光点缀。
+**Global Visual Language:** The style should seamlessly blend Apple Keynote minimalism, modern SaaS product design, and glassmorphism. The overall atmosphere should be premium, immersive, clean, and breathable. Lighting should use cinematic volumetric light, soft ray-traced reflections, and ambient occlusion. The color palette should use deep void black or pure ceramic white as the base, accented with flowing aurora gradient colors — neon purple, electric blue, soft coral orange, and cyan — as background and UI highlights.
 
-关于画面内容模块，请智能整合以下元素：
+**Content Module Composition — intelligently integrate the following elements:**
 
-1. 排版引擎采用Bento便当盒网格系统，将内容组织在模块化的圆角矩形容器中。容器材质必须是带有模糊效果的磨砂玻璃，具有精致的白色边缘和柔和的投影,并强制保留巨大的内部留白，避免拥挤。
+1. **Layout Engine**: Use the Bento box grid system to organize content in modular rounded-rectangle containers. Container material must be frosted glass with a blur effect, featuring refined white borders and soft drop shadows. Enforce generous internal white space to avoid clutter.
 
-2. 插入礼物质感的3D物体，渲染独特的高端抽象3D制品作为视觉锚点。它们的外观应像实体的昂贵礼物或收藏品，材质为抛光金属、幻彩亚克力、透明玻璃或软硅胶，形状可是悬浮胶囊、球体、盾牌、莫比乌斯环或流体波浪。
+2. **3D Accent Objects**: Render unique, premium abstract 3D artifacts as visual anchors. They should look like expensive physical collectibles or gift items, with materials such as polished metal, iridescent acrylic, transparent glass, or soft silicone. Shapes can include floating capsules, spheres, shields, Möbius strips, or fluid waves.
 
-3. 字体与数据方面，使用干净的无衬线字体，建立高对比度。如果有图表，请使用发光的3D甜甜圈图、胶囊状进度条或悬浮数字，图表应看起来像发光的霓虹灯玩具。
+3. **Typography & Data**: Use clean sans-serif fonts to establish high contrast. If charts are included, use glowing 3D donut charts, capsule-shaped progress bars, or floating numerals — charts should look like glowing neon toys.
 
-渲染质量要求：虚幻引擎5渲染，8k分辨率，超细节纹理，UI设计感，UX界面，Dribbble热门趋势，设计奖获奖作品。
+**Render Quality Requirements:** Unreal Engine 5 rendering, 8K resolution, ultra-detailed textures, UI design aesthetic, UX interface look, Dribbble trending, award-winning design.
 
-## 页面类型模板
+## Page Type Templates
 
-### 封面页模板
-构图逻辑：在中心放置一个巨大的复杂3D玻璃物体，并覆盖粗体大字，背景有延伸的极光波浪。
+### Cover Page Template
+Composition logic: Place a large, complex 3D glass object at the center, overlaid with bold large text. The background features extending aurora waves.
 
-使用场景：PPT的第一页，展示标题和主题。
+Use case: The first slide of a PPT — displays the title and theme.
 
-### 内容页模板
-构图逻辑：使用Bento网格布局，将3D图标放在小卡片中，文本放在大卡片中。容器材质必须是带有模糊效果的磨砂玻璃，具有精致的白色边缘和柔和的投影，并强制保留巨大的内部留白，避免拥挤。
+### Content Page Template
+Composition logic: Use a Bento grid layout, placing 3D icons in small cards and text in large cards. Container material must be frosted glass with a blur effect, featuring refined white borders and soft drop shadows, with generous internal white space to avoid clutter.
 
-使用场景：展示核心观点、要点、内容章节等。
+Use case: Displaying core points, bullet points, and content chapters.
 
-### 数据页模板
-构图逻辑：使用分屏设计，左侧排版文字，右侧悬浮巨大的发光3D数据可视化图表。图表应使用发光的3D甜甜圈图、胶囊状进度条或悬浮数字，看起来像发光的霓虹灯玩具。
+### Data Page Template
+Composition logic: Use a split-screen design — typography and text on the left, a large glowing 3D data visualization chart floating on the right. Charts should use glowing 3D donut charts, capsule-shaped progress bars, or floating numerals that look like glowing neon toys.
 
-使用场景：展示数据、统计信息、对比分析、总结等。
+Use case: Displaying data, statistics, comparative analysis, and summaries.
 
-## 使用示例
+## Usage Examples
 
-### 生成封面页
+### Generate a Cover Page
 ```
-{基础提示词模板}
+{Base Prompt Template}
 
-请根据视觉平衡美学，生成封面页。在中心放置一个巨大的复杂3D玻璃物体，并覆盖粗体大字：
+Based on visual balance aesthetics, generate a cover page. Place a large, complex 3D glass object at the center, overlaid with bold large text:
 
-[标题文本]
+[Title text]
 
-背景有延伸的极光波浪。
-```
-
-### 生成内容页
-```
-{基础提示词模板}
-
-请生成内容页。使用Bento网格布局，将以下内容组织在模块化的圆角矩形容器中，容器材质必须是带有模糊效果的磨砂玻璃：
-
-[内容文本]
+The background features extending aurora waves.
 ```
 
-### 生成数据页
+### Generate a Content Page
 ```
-{基础提示词模板}
+{Base Prompt Template}
 
-请生成数据页或总结页。使用分屏设计，左侧排版以下文字，右侧悬浮巨大的发光3D数据可视化图表：
+Generate a content page. Use a Bento grid layout to organize the following content in modular rounded-rectangle containers. Container material must be frosted glass with a blur effect:
 
-[内容文本]
+[Content text]
 ```
 
-## 技术参数
+### Generate a Data Page
+```
+{Base Prompt Template}
 
-### Nano Banana Pro配置
-- 模型：gemini-3-pro-image-preview
-- 比例：16:9
-- 分辨率：2K (2752x1536) 或 4K (5504x3072)
-- 响应模式：IMAGE
+Generate a data or summary page. Use a split-screen design — typography and the following text on the left, a large glowing 3D data visualization chart floating on the right:
 
-### 建议设置
-- 推荐分辨率：2K（平衡质量和生成速度）
-- 适用于：产品演示、技术分享、创意提案、数据报告等场景
+[Content text]
+```
+
+## Technical Parameters
+
+### Nano Banana Pro Configuration
+- Model: gemini-3-pro-image-preview
+- Aspect ratio: 16:9
+- Resolution: 2K (2752x1536) or 4K (5504x3072)
+- Response mode: IMAGE
+
+### Recommended Settings
+- Recommended resolution: 2K (balanced quality and generation speed)
+- Suitable for: product demos, tech talks, creative proposals, data reports, and more

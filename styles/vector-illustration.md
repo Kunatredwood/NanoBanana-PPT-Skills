@@ -1,131 +1,131 @@
-# 矢量插画风格
+# Vector Illustration Style
 
-## 风格ID
+## Style ID
 vector-illustration
 
-## 风格名称
-矢量插画风格PPT
+## Style Name
+Vector Illustration Style PPT
 
-## 适配模型
+## Compatible Models
 - Nano Banana Pro (gemini-3-pro-image-preview)
 - Notebookml
 - Youmind
 - Listenhub
 - Lovart
 
-## 风格描述
-扁平化矢量插画风格，具有清晰的黑色轮廓线和复古柔和的配色方案。强调几何化简化和玩具模型般的可爱感。
+## Style Description
+A flat vector illustration style with clean black outlines and a retro, muted color palette. Emphasizes geometric simplification and a toy-model-like charm.
 
-## 基础提示词模板
+## Base Prompt Template
 
-你是一位专家级插画设计师，请生成16比9的矢量插画风格演示文稿幻灯片。
+You are an expert-level illustration designer. Generate a 16:9 vector illustration style presentation slide.
 
-**视觉风格与美术指导**
+**Visual Style & Art Direction**
 
-插画风格：扁平化矢量插画（Flat Vector Illustration）。必须包含清晰、统一粗细的黑色轮廓线（Monoline/Stroke）。色彩填涂需简洁，仅使用少量阴影，严禁使用渐变色或3D渲染效果。
+Illustration style: Flat Vector Illustration. Must include clean, uniform-weight black outlines (Monoline/Stroke). Color fills should be simple, using minimal shading; gradients and 3D rendering effects are strictly prohibited.
 
-构图形式：横向全景式构图（Panoramic），占据版面顶部 1/3 的空间。
+Composition: Horizontal panoramic composition (Panoramic), occupying the top 1/3 of the frame.
 
-线条风格（Line Work）：必须使用统一粗细的黑色单线描边（Monoline/Uniform Stroke）。所有物体（建筑、植物、云朵）都必须有封闭的黑色轮廓，类似填色书的线稿风格。线条末端圆润，避免尖锐的棱角。
+Line Work: Must use uniform-weight black single-line strokes (Monoline/Uniform Stroke). All objects (buildings, plants, clouds) must have closed black outlines, similar to the linework of a coloring book. Line ends should be rounded; avoid sharp corners.
 
-几何化处理（Geometric Simplification）：将复杂的物体简化为基本几何形状。例如，树木简化为棒棒糖形状或三角形，建筑物简化为简单的矩形块面，窗户简化为整齐的小方格网格。不要追求写实细节，要追求"玩具模型"般的可爱感。
+Geometric Simplification: Simplify complex objects into basic geometric shapes. For example, trees become lollipop shapes or triangles, buildings become simple rectangular blocks, and windows become neat small grid squares. Do not pursue realistic detail — aim for a "toy model" cuteness.
 
-空间与透视：采用平视或稍微俯视的 2.5D 视角（类似等轴测，但更自由）。通过图层的前后遮挡来表现纵深，不要使用大气透视（即远景不要变模糊或变淡），所有图层清晰度一致。
+Spatial Perspective: Use a straight-on or slightly top-down 2.5D perspective (similar to isometric, but more free). Express depth through layer overlap and occlusion rather than atmospheric perspective (distant objects should not be blurred or faded — all layers should have equal clarity).
 
-装饰元素：在空白处添加装饰性的几何元素，如放射状的线条（代表阳光或能量）、药丸形状的云朵、或者是简单的小圆点和星星，以平衡画面的视觉密度。
+Decorative Elements: Add decorative geometric elements in empty areas, such as radiating lines (representing sunlight or energy), pill-shaped clouds, small dots, and stars, to balance the visual density of the composition.
 
-**配色方案**
+**Color Palette**
 
-背景：米色/奶油色（Cream/Off-white）纸张纹理感底色。
+Background: Cream/off-white paper texture.
 
-强调色：珊瑚红、薄荷绿、芥末黄、赭石色（Burnt Orange）和岩石蓝。复古且柔和的色调。
+Accent colors: Coral red, mint green, mustard yellow, burnt orange, and slate blue. Retro and muted tones.
 
-**字体排版**
+**Typography**
 
-主标题：巨大的、加粗的复古衬线体（Retro Serif），体现权威感与优雅感。
+Main title: Large, bold retro serif typeface — conveys authority and elegance.
 
-副标题：位于矩形色块内的全大写无衬线体。
+Subtitle: All-caps sans-serif on a colored rectangular background.
 
-正文：清晰易读的几何感无衬线体。
+Body text: Clean, legible geometric sans-serif.
 
-## 页面类型模板
+## Page Type Templates
 
-### 封面页模板
-构图逻辑：主标题使用巨大的复古衬线体，占据画面中央。顶部1/3区域绘制横向全景式的矢量插画场景，包含简化的几何化建筑、玩具般的树木和装饰元素。背景使用米色/奶油色纸张纹理。
+### Cover Page Template
+Composition logic: The main title uses a large, bold retro serif typeface and occupies the center of the frame. The top 1/3 features a horizontal panoramic vector illustration scene with geometrically simplified buildings, toy-like trees, and decorative elements. Background uses a cream/off-white paper texture.
 
-使用场景：PPT的第一页，展示标题和主题。
+Use case: The first slide of a PPT — displays the title and theme.
 
-### 内容页模板
-构图逻辑：顶部保留横向插画装饰带。内容区域使用几何化的图标和矢量小插画配合文字，所有元素都带有统一粗细的黑色轮廓线。使用彩色矩形块分隔不同的要点。
+### Content Page Template
+Composition logic: The top area retains a horizontal illustration decorative band. The content area uses geometric icons and small vector illustrations alongside text, with all elements featuring uniform-weight black outlines. Colored rectangular blocks separate different bullet points.
 
-使用场景：展示核心观点、要点、内容章节等。
+Use case: Displaying core points, bullet points, and content chapters.
 
-### 数据页模板
-构图逻辑：使用几何化的图表和信息图形式，如简化的饼图、条形图等，所有图表元素都有清晰的黑色轮廓。配色使用复古柔和色调。添加装饰性几何元素平衡画面。
+### Data Page Template
+Composition logic: Uses geometric charts and infographic styles — simplified pie charts, bar charts, etc. — with all chart elements having clear black outlines. Colors use the retro muted palette. Decorative geometric elements are added to balance the composition.
 
-使用场景：展示数据、统计信息、对比分析、总结等。
+Use case: Displaying data, statistics, comparative analysis, and summaries.
 
-## 使用示例
+## Usage Examples
 
-### 生成封面页
+### Generate a Cover Page
 ```
-{基础提示词模板}
+{Base Prompt Template}
 
-请生成封面页。在顶部1/3区域绘制横向全景式的矢量插画场景，包含以下元素的几何化简化表现：[根据主题选择场景元素]。
+Generate a cover page. In the top 1/3 area, draw a horizontal panoramic vector illustration scene featuring geometric simplifications of the following scene elements: [choose elements based on the topic].
 
-主标题使用巨大的复古衬线体，内容为：
-[标题文本]
+The main title uses a large, bold retro serif typeface with the content:
+[Title text]
 
-副标题使用矩形色块背景的全大写无衬线体：
-[副标题文本]
+The subtitle uses an all-caps sans-serif on a colored rectangular background:
+[Subtitle text]
 
-背景使用米色/奶油色纸张纹理。
-```
-
-### 生成内容页
-```
-{基础提示词模板}
-
-请生成内容页。顶部绘制横向插画装饰带。
-
-内容区域展示以下要点，每个要点配合简洁的矢量图标，所有元素都有统一的黑色轮廓线：
-
-[内容文本]
-
-使用彩色矩形块（珊瑚红、薄荷绿、芥末黄）分隔不同要点。
+Background uses a cream/off-white paper texture.
 ```
 
-### 生成数据页
+### Generate a Content Page
 ```
-{基础提示词模板}
+{Base Prompt Template}
 
-请生成数据页。使用几何化的矢量图表形式展示以下数据，所有图表元素都有清晰的黑色轮廓：
+Generate a content page. Draw a horizontal illustration decorative band at the top.
 
-[内容文本]
+The content area displays the following points, each paired with a simple vector icon. All elements have uniform-weight black outlines:
 
-配色使用复古柔和色调，添加装饰性的几何元素（小圆点、星星、放射线）平衡画面。
+[Content text]
+
+Use colored rectangular blocks (coral red, mint green, mustard yellow) to separate different points.
 ```
 
-## 技术参数
+### Generate a Data Page
+```
+{Base Prompt Template}
 
-### Nano Banana Pro配置
-- 模型：gemini-3-pro-image-preview
-- 比例：16:9
-- 分辨率：2K (2752x1536) 或 4K (5504x3072)
-- 响应模式：IMAGE
+Generate a data page. Display the following data using geometric vector charts; all chart elements have clear black outlines:
 
-### 建议设置
-- 推荐分辨率：2K（平衡质量和生成速度）
-- 适用于：教育演示、创意提案、儿童内容、品牌展示等场景
-- 风格特点：温暖可爱、易于理解、复古怀旧
+[Content text]
 
-## 风格关键词
+Use the retro muted color palette and add decorative geometric elements (small dots, stars, radiating lines) to balance the composition.
+```
 
-- 扁平化矢量插画
-- 黑色轮廓线
-- 几何化简化
-- 复古配色
-- 玩具模型感
-- 横向全景构图
-- 米色纸张纹理
-- 装饰性几何元素
+## Technical Parameters
+
+### Nano Banana Pro Configuration
+- Model: gemini-3-pro-image-preview
+- Aspect ratio: 16:9
+- Resolution: 2K (2752x1536) or 4K (5504x3072)
+- Response mode: IMAGE
+
+### Recommended Settings
+- Recommended resolution: 2K (balanced quality and generation speed)
+- Suitable for: educational presentations, creative proposals, children's content, brand storytelling, and more
+- Style keywords: warm, cute, easy to understand, retro, nostalgic
+
+## Style Keywords
+
+- Flat vector illustration
+- Black outlines
+- Geometric simplification
+- Retro color palette
+- Toy model aesthetic
+- Horizontal panoramic composition
+- Cream paper texture
+- Decorative geometric elements

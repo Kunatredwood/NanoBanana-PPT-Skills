@@ -1,59 +1,59 @@
-# PPT Generator Pro 架构文档
+# PPT Generator Pro Architecture Documentation
 
-## 📐 系统架构图
+## 📐 System Architecture Diagram
 
 ```mermaid
 graph TB
-    %% 用户输入
-    User[👤 用户] -->|文档内容| Input[📝 输入处理]
-    
-    %% 输入处理
-    Input --> Plan[📋 内容规划<br/>slides_plan.json]
-    
-    %% 核心模块
-    Plan --> PPTGen[🎨 PPT 图片生成模块<br/>generate_ppt.py]
-    Plan --> VideoGen[🎬 视频生成模块<br/>generate_ppt_video.py]
-    
-    %% PPT 图片生成流程
-    PPTGen --> StyleLoader[🎨 风格加载器<br/>styles/*.md]
-    StyleLoader --> PromptEngine[✍️ 提示词引擎]
+    %% User Input
+    User[👤 User] -->|Document content| Input[📝 Input Processing]
+
+    %% Input Processing
+    Input --> Plan[📋 Content Planning<br/>slides_plan.json]
+
+    %% Core Modules
+    Plan --> PPTGen[🎨 PPT Image Generation Module<br/>generate_ppt.py]
+    Plan --> VideoGen[🎬 Video Generation Module<br/>generate_ppt_video.py]
+
+    %% PPT Image Generation Flow
+    PPTGen --> StyleLoader[🎨 Style Loader<br/>styles/*.md]
+    StyleLoader --> PromptEngine[✍️ Prompt Engine]
     PromptEngine --> NanoBanana[🤖 Nano Banana Pro API<br/>Google Gemini]
-    NanoBanana --> Images[🖼️ PPT 图片<br/>slide-01.png ~ slide-N.png]
-    
-    %% 视频生成流程
-    VideoGen --> TransPrompt[📝 转场提示词生成器<br/>transition_prompt_generator.py]
-    TransPrompt --> KlingAPI[🎬 可灵 AI API<br/>kling_api.py]
-    KlingAPI --> PreviewVideo[🔄 预览视频<br/>preview.mp4]
-    KlingAPI --> TransVideos[🎞️ 转场视频<br/>transition_01_to_02.mp4]
-    
-    %% 视频合成
-    Images --> VideoMat[📦 视频素材管理<br/>video_materials.py]
+    NanoBanana --> Images[🖼️ PPT Images<br/>slide-01.png ~ slide-N.png]
+
+    %% Video Generation Flow
+    VideoGen --> TransPrompt[📝 Transition Prompt Generator<br/>transition_prompt_generator.py]
+    TransPrompt --> KlingAPI[🎬 Kling AI API<br/>kling_api.py]
+    KlingAPI --> PreviewVideo[🔄 Preview Video<br/>preview.mp4]
+    KlingAPI --> TransVideos[🎞️ Transition Videos<br/>transition_01_to_02.mp4]
+
+    %% Video Composition
+    Images --> VideoMat[📦 Video Materials Manager<br/>video_materials.py]
     PreviewVideo --> VideoMat
     TransVideos --> VideoMat
-    
-    VideoMat --> Composer[🎬 FFmpeg 视频合成器<br/>video_composer.py]
-    Composer --> FullVideo[🎥 完整视频<br/>full_ppt_video.mp4]
-    
-    %% 播放器生成
-    Images --> ImgPlayer[🎮 图片播放器<br/>templates/viewer.html]
-    VideoMat --> VidPlayer[🎮 视频播放器<br/>templates/video_viewer.html]
-    
-    %% 输出
-    ImgPlayer --> Output1[📤 输出 1: 图片版<br/>index.html + images/]
-    VidPlayer --> Output2[📤 输出 2: 视频版<br/>video_index.html + videos/]
-    FullVideo --> Output3[📤 输出 3: 完整视频<br/>full_ppt_video.mp4]
-    
+
+    VideoMat --> Composer[🎬 FFmpeg Video Composer<br/>video_composer.py]
+    Composer --> FullVideo[🎥 Full Video<br/>full_ppt_video.mp4]
+
+    %% Player Generation
+    Images --> ImgPlayer[🎮 Image Player<br/>templates/viewer.html]
+    VideoMat --> VidPlayer[🎮 Video Player<br/>templates/video_viewer.html]
+
+    %% Output
+    ImgPlayer --> Output1[📤 Output 1: Image Version<br/>index.html + images/]
+    VidPlayer --> Output2[📤 Output 2: Video Version<br/>video_index.html + videos/]
+    FullVideo --> Output3[📤 Output 3: Full Video<br/>full_ppt_video.mp4]
+
     Output1 --> User
     Output2 --> User
     Output3 --> User
-    
-    %% 样式定义
+
+    %% Style Definitions
     classDef userNode fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     classDef inputNode fill:#fff9c4,stroke:#f9a825,stroke-width:2px
     classDef coreNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     classDef apiNode fill:#ffebee,stroke:#c62828,stroke-width:2px
     classDef outputNode fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    
+
     class User userNode
     class Input,Plan inputNode
     class PPTGen,VideoGen,StyleLoader,PromptEngine,TransPrompt,VideoMat,Composer coreNode
@@ -61,9 +61,9 @@ graph TB
     class Images,PreviewVideo,TransVideos,FullVideo,ImgPlayer,VidPlayer,Output1,Output2,Output3 outputNode
 ```
 
-## 🏗️ 模块架构
+## 🏗️ Module Architecture
 
-### 1️⃣ 核心生成模块
+### 1️⃣ Core Generation Modules
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -71,66 +71,67 @@ graph TB
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌────────────────────┐        ┌──────────────────────┐    │
-│  │  图片生成模块      │        │   视频生成模块       │    │
+│  │  Image Generation  │        │   Video Generation   │    │
 │  │  generate_ppt.py   │        │ generate_ppt_video.py│    │
 │  └────────────────────┘        └──────────────────────┘    │
 │           │                              │                  │
 │           ▼                              ▼                  │
 │  ┌────────────────────┐        ┌──────────────────────┐    │
-│  │  风格系统          │        │  转场提示词生成      │    │
-│  │  styles/*.md       │        │ transition_prompt_   │    │
+│  │   Style System     │        │  Transition Prompt   │    │
+│  │   styles/*.md      │        │     Generation       │    │
+│  │                    │        │ transition_prompt_   │    │
 │  │                    │        │   generator.py       │    │
 │  └────────────────────┘        └──────────────────────┘    │
 │           │                              │                  │
 │           ▼                              ▼                  │
 │  ┌────────────────────┐        ┌──────────────────────┐    │
-│  │ Nano Banana Pro    │        │   可灵 AI API        │    │
+│  │ Nano Banana Pro    │        │   Kling AI API       │    │
 │  │ (Gemini 3 Pro)     │        │   kling_api.py       │    │
 │  └────────────────────┘        └──────────────────────┘    │
 │           │                              │                  │
 │           ▼                              ▼                  │
-│    🖼️ PPT 图片                    🎬 转场视频               │
+│    🖼️ PPT Images                  🎬 Transition Videos      │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 2️⃣ 视频合成模块
+### 2️⃣ Video Composition Module
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│               FFmpeg 视频合成流程                            │
+│               FFmpeg Video Composition Pipeline              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│  输入素材:                                                   │
-│  ├── 📷 PPT 图片 (slide-01.png ~ slide-N.png)              │
-│  ├── 🔄 预览视频 (preview.mp4)                              │
-│  └── 🎞️ 转场视频 (transition_XX_to_YY.mp4)                 │
+│  Input Materials:                                            │
+│  ├── 📷 PPT Images (slide-01.png ~ slide-N.png)             │
+│  ├── 🔄 Preview Video (preview.mp4)                         │
+│  └── 🎞️ Transition Videos (transition_XX_to_YY.mp4)        │
 │                                                              │
 │  ┌────────────────────────────────────────────────┐         │
-│  │     video_materials.py - 素材管理             │         │
-│  │  • 收集所有素材                                │         │
-│  │  • 验证文件完整性                              │         │
-│  │  • 组织素材顺序                                │         │
+│  │     video_materials.py - Materials Manager    │         │
+│  │  • Collect all materials                       │         │
+│  │  • Verify file integrity                       │         │
+│  │  • Organize material sequence                  │         │
 │  └────────────────────────────────────────────────┘         │
 │                       │                                      │
 │                       ▼                                      │
 │  ┌────────────────────────────────────────────────┐         │
-│  │     video_composer.py - FFmpeg 合成器         │         │
+│  │     video_composer.py - FFmpeg Composer       │         │
 │  │                                                │         │
-│  │  步骤 1: 图片转静态视频                        │         │
-│  │    • 转换为 2 秒静态视频                       │         │
-│  │    • 统一分辨率 1920x1080                      │         │
-│  │    • 统一帧率 24fps                            │         │
+│  │  Step 1: Convert images to static video        │         │
+│  │    • Convert to 2-second static clips          │         │
+│  │    • Normalize to 1920x1080                    │         │
+│  │    • Normalize to 24fps                        │         │
 │  │                                                │         │
-│  │  步骤 2: 标准化所有视频                        │         │
-│  │    • 缩放到统一分辨率                          │         │
-│  │    • 添加黑边保持宽高比                        │         │
-│  │    • 统一帧率                                  │         │
+│  │  Step 2: Normalize all videos                  │         │
+│  │    • Scale to unified resolution               │         │
+│  │    • Add letterboxing to preserve aspect ratio │         │
+│  │    • Unify frame rate                          │         │
 │  │                                                │         │
-│  │  步骤 3: 拼接视频序列                          │         │
-│  │    预览 → 转场01-02 → 静态02 → 转场02-03...   │         │
+│  │  Step 3: Concatenate video sequence            │         │
+│  │    Preview → Trans01-02 → Static02 → Trans02-03│         │
 │  │                                                │         │
-│  │  步骤 4: H.264 编码输出                        │         │
+│  │  Step 4: H.264 encode and output               │         │
 │  └────────────────────────────────────────────────┘         │
 │                       │                                      │
 │                       ▼                                      │
@@ -139,23 +140,23 @@ graph TB
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 3️⃣ 播放器系统
+### 3️⃣ Player System
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   播放器架构                                 │
+│                     Player Architecture                      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌───────────────────────┐    ┌────────────────────────┐   │
-│  │  图片播放器           │    │   视频播放器           │   │
-│  │  viewer.html          │    │   video_viewer.html    │   │
+│  │     Image Player      │    │     Video Player       │   │
+│  │     viewer.html       │    │  video_viewer.html     │   │
 │  ├───────────────────────┤    ├────────────────────────┤   │
 │  │                       │    │                        │   │
-│  │  • 图片轮播           │    │  • 视频+图片混合       │   │
-│  │  • 键盘导航           │    │  • 智能转场            │   │
-│  │  • 全屏支持           │    │  • 预览模式            │   │
-│  │  • 触摸滑动           │    │  • 状态管理            │   │
-│  │  • 自动播放           │    │  • 键盘控制            │   │
+│  │  • Image slideshow    │    │  • Video + image mix   │   │
+│  │  • Keyboard nav       │    │  • Smart transitions   │   │
+│  │  • Fullscreen         │    │  • Preview mode        │   │
+│  │  • Touch/swipe        │    │  • State management    │   │
+│  │  • Auto-play          │    │  • Keyboard controls   │   │
 │  │                       │    │                        │   │
 │  └───────────────────────┘    └────────────────────────┘   │
 │           │                              │                  │
@@ -165,235 +166,236 @@ graph TB
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 🔄 数据流图
+## 🔄 Data Flow Diagram
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│                         完整工作流                                │
+│                         Full Workflow                             │
 └──────────────────────────────────────────────────────────────────┘
 
-1️⃣ 内容输入阶段
-   用户文档 → Claude 分析 → slides_plan.json
-   
-2️⃣ 图片生成阶段
-   slides_plan.json → 风格提示词 → Nano Banana Pro → PPT 图片
-   
-3️⃣ 视频生成阶段 (可选)
-   PPT 图片 → 转场提示词 → 可灵 AI → 转场视频
-   
-4️⃣ 播放器生成阶段
-   素材集合 → HTML 模板 → 交互式播放器
-   
-5️⃣ 完整视频合成阶段 (可选)
-   所有素材 → FFmpeg → 完整视频文件
+1️⃣ Content Input Phase
+   User document → Claude analysis → slides_plan.json
+
+2️⃣ Image Generation Phase
+   slides_plan.json → Style prompts → Nano Banana Pro → PPT images
+
+3️⃣ Video Generation Phase (optional)
+   PPT images → Transition prompts → Kling AI → Transition videos
+
+4️⃣ Player Generation Phase
+   Material set → HTML templates → Interactive player
+
+5️⃣ Full Video Composition Phase (optional)
+   All materials → FFmpeg → Full video file
 ```
 
-## 📦 文件组织结构
+## 📦 File Organization
 
 ```
 ppt-generator-pro/
 │
-├── 🎯 核心脚本
-│   ├── generate_ppt.py              # PPT 图片生成主程序
-│   ├── generate_ppt_video.py        # 视频生成主程序
-│   ├── kling_api.py                 # 可灵 AI API 封装
-│   ├── video_composer.py            # FFmpeg 视频合成
-│   ├── video_materials.py           # 素材管理
-│   └── transition_prompt_generator.py # 转场提示词生成
+├── 🎯 Core Scripts
+│   ├── generate_ppt.py              # PPT image generation main script
+│   ├── generate_ppt_video.py        # Video generation main script
+│   ├── kling_api.py                 # Kling AI API wrapper
+│   ├── video_composer.py            # FFmpeg video composition
+│   ├── video_materials.py           # Materials management
+│   └── transition_prompt_generator.py # Transition prompt generator
 │
-├── 🎨 风格系统
+├── 🎨 Style System
 │   └── styles/
-│       ├── gradient-glass.md        # 渐变毛玻璃风格
-│       └── vector-illustration.md   # 矢量插画风格
+│       ├── gradient-glass.md        # Gradient glassmorphism style
+│       └── vector-illustration.md   # Vector illustration style
 │
-├── 🎮 播放器模板
+├── 🎮 Player Templates
 │   └── templates/
-│       ├── viewer.html              # 图片播放器
-│       └── video_viewer.html        # 视频播放器
+│       ├── viewer.html              # Image player
+│       └── video_viewer.html        # Video player
 │
-├── 📝 提示词模板
+├── 📝 Prompt Templates
 │   └── prompts/
-│       └── transition_base.md       # 转场提示词基础
+│       └── transition_base.md       # Base transition prompt
 │
-├── ⚙️ 配置文件
-│   ├── .env                         # API 密钥配置
-│   └── .env.example                 # 配置模板
+├── ⚙️ Configuration Files
+│   ├── .env                         # API key configuration
+│   └── .env.example                 # Configuration template
 │
-└── 📤 输出目录
+└── 📤 Output Directory
     └── outputs/
-        ├── TIMESTAMP/               # 图片版本
-        │   ├── images/             # PPT 图片
-        │   ├── index.html          # 图片播放器
-        │   └── prompts.json        # 提示词记录
-        └── TIMESTAMP_video/         # 视频版本
-            ├── videos/             # 转场视频
-            ├── video_index.html    # 视频播放器
-            └── full_ppt_video.mp4  # 完整视频
+        ├── TIMESTAMP/               # Image version
+        │   ├── images/             # PPT images
+        │   ├── index.html          # Image player
+        │   └── prompts.json        # Prompt log
+        └── TIMESTAMP_video/         # Video version
+            ├── videos/             # Transition videos
+            ├── video_index.html    # Video player
+            └── full_ppt_video.mp4  # Full video
 ```
 
-## 🔌 API 集成架构
+## 🔌 API Integration Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      API 集成层                              │
+│                      API Integration Layer                   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │  ┌──────────────────────┐      ┌───────────────────────┐   │
-│  │  Google Gemini API   │      │    可灵 AI API        │   │
+│  │  Google Gemini API   │      │    Kling AI API       │   │
 │  ├──────────────────────┤      ├───────────────────────┤   │
 │  │                      │      │                       │   │
-│  │  • Nano Banana Pro   │      │  • 图生视频 (i2v)    │   │
-│  │  • 图像生成          │      │  • 视频生成           │   │
-│  │  • 提示词工程        │      │  • 数字人生成         │   │
-│  │  • 风格控制          │      │  • 主体库             │   │
-│  │  • 分辨率控制        │      │  • 专业/创意模式      │   │
+│  │  • Nano Banana Pro   │      │  • Image-to-video     │   │
+│  │  • Image generation  │      │  • Video generation   │   │
+│  │  • Prompt engineering│      │  • Digital human      │   │
+│  │  • Style control     │      │  • Subject library    │   │
+│  │  • Resolution control│      │  • Pro/creative mode  │   │
 │  │                      │      │                       │   │
 │  └──────────────────────┘      └───────────────────────┘   │
 │           ▲                              ▲                  │
 │           │                              │                  │
 │  ┌────────┴───────────┐      ┌──────────┴────────────┐    │
 │  │  GEMINI_API_KEY    │      │  KLING_ACCESS_KEY     │    │
-│  │  (必需)            │      │  KLING_SECRET_KEY     │    │
-│  │                    │      │  (可选)               │    │
+│  │  (required)        │      │  KLING_SECRET_KEY     │    │
+│  │                    │      │  (optional)           │    │
 │  └────────────────────┘      └───────────────────────┘    │
 │           ▲                              ▲                  │
 │           └──────────────┬───────────────┘                 │
 │                          │                                  │
 │                    ┌─────┴──────┐                          │
-│                    │  .env 文件  │                          │
+│                    │  .env file  │                          │
 │                    └────────────┘                          │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 🎬 视频播放器交互流程
+## 🎬 Video Player State Machine
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│            视频播放器 (VideoPPTPlayer) 状态机               │
+│        Video Player (VideoPPTPlayer) State Machine           │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
 │      ┌──────────────────────────────────┐                  │
-│      │      初始状态: 预览模式          │                  │
-│      │   🔄 播放 preview.mp4 (循环)    │                  │
+│      │    Initial State: Preview Mode   │                  │
+│      │   🔄 Playing preview.mp4 (loop) │                  │
 │      └──────────────────────────────────┘                  │
 │                     │                                        │
-│                     │ 用户按右键 →                          │
+│                     │ User presses → key                    │
 │                     ▼                                        │
 │      ┌──────────────────────────────────┐                  │
-│      │      转场状态 (01→02)            │                  │
-│      │   🎞️ 播放 transition_01_to_02   │                  │
+│      │   Transition State (01→02)       │                  │
+│      │   🎞️ Playing transition_01_to_02 │                  │
 │      │      isTransitioning = true      │                  │
 │      └──────────────────────────────────┘                  │
 │                     │                                        │
-│                     │ 视频结束 →                            │
+│                     │ Video ends                            │
 │                     ▼                                        │
 │      ┌──────────────────────────────────┐                  │
-│      │      静态页面状态 (页面2)        │                  │
-│      │   🖼️ 显示 slide-02.png          │                  │
+│      │   Static Slide State (Slide 2)   │                  │
+│      │   🖼️ Showing slide-02.png        │                  │
 │      │      currentSlide = 1            │                  │
 │      │      isPreviewMode = false       │                  │
 │      └──────────────────────────────────┘                  │
 │                     │                                        │
-│                     │ 用户按右键 →                          │
+│                     │ User presses → key                    │
 │                     ▼                                        │
 │      ┌──────────────────────────────────┐                  │
-│      │      转场状态 (02→03)            │                  │
-│      │   🎞️ 播放 transition_02_to_03   │                  │
+│      │   Transition State (02→03)       │                  │
+│      │   🎞️ Playing transition_02_to_03 │                  │
 │      └──────────────────────────────────┘                  │
 │                     │                                        │
-│                     │ 视频结束 →                            │
+│                     │ Video ends                            │
 │                     ▼                                        │
 │      ┌──────────────────────────────────┐                  │
-│      │      静态页面状态 (页面3)        │                  │
-│      │   🖼️ 显示 slide-03.png          │                  │
+│      │   Static Slide State (Slide 3)   │                  │
+│      │   🖼️ Showing slide-03.png        │                  │
 │      └──────────────────────────────────┘                  │
 │                     │                                        │
-│                     │ 循环继续...                           │
+│                     │ Cycle continues...                    │
 │                     ▼                                        │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 
-关键状态变量:
-• isPreviewMode: 是否在预览模式
-• isTransitioning: 是否在播放转场视频
-• currentSlide: 当前幻灯片索引
+Key State Variables:
+• isPreviewMode: whether currently in preview mode
+• isTransitioning: whether a transition video is playing
+• currentSlide: current slide index
 ```
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        技术栈                                │
+│                          Tech Stack                          │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│  后端 (Python 3.8+)                                         │
-│  ├── google-genai       # Google Gemini API 客户端         │
-│  ├── pillow            # 图像处理                           │
-│  └── requests          # HTTP 请求                          │
+│  Backend (Python 3.8+)                                      │
+│  ├── google-genai       # Google Gemini API client          │
+│  ├── pillow            # Image processing                    │
+│  └── requests          # HTTP requests                       │
 │                                                              │
-│  视频处理                                                    │
-│  └── FFmpeg            # 视频编码、转换、合成               │
+│  Video Processing                                            │
+│  └── FFmpeg            # Video encoding, conversion, and    │
+│                          composition                         │
 │                                                              │
-│  前端 (HTML5 + JavaScript)                                  │
-│  ├── 原生 JavaScript    # 播放器逻辑                        │
-│  ├── HTML5 Video       # 视频播放                           │
-│  └── CSS3              # 样式和动画                         │
+│  Frontend (HTML5 + JavaScript)                              │
+│  ├── Vanilla JavaScript # Player logic                       │
+│  ├── HTML5 Video       # Video playback                      │
+│  └── CSS3              # Styles and animations               │
 │                                                              │
-│  AI 服务                                                     │
-│  ├── Google Nano Banana Pro (Gemini 3 Pro Image Preview)   │
-│  └── 可灵 AI (Kling AI)                                    │
+│  AI Services                                                 │
+│  ├── Google Nano Banana Pro (Gemini 3 Pro Image Preview)    │
+│  └── Kling AI                                               │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 📊 性能指标
+## 📊 Performance Metrics
 
 ```
-生成速度:
-├── PPT 图片: ~30秒/页 (2K) | ~60秒/页 (4K)
-├── 转场视频: ~30-60秒/段 (可灵 AI)
-└── 视频合成: ~5-10秒 (FFmpeg, 取决于页数)
+Generation Speed:
+├── PPT images: ~30s/slide (2K) | ~60s/slide (4K)
+├── Transition videos: ~30–60s/segment (Kling AI)
+└── Video composition: ~5–10s (FFmpeg, depends on slide count)
 
-文件大小:
-├── PPT 图片: ~2.5MB/页 (2K) | ~8MB/页 (4K)
-├── 转场视频: ~3-5MB/段 (1080p, 5秒)
-└── 完整视频: ~12-20MB (5页 PPT + 转场)
+File Size:
+├── PPT images: ~2.5MB/slide (2K) | ~8MB/slide (4K)
+├── Transition videos: ~3–5MB/segment (1080p, 5 seconds)
+└── Full video: ~12–20MB (5-slide PPT + transitions)
 
-质量参数:
-├── 图片: 2752x1536 (2K) | 5504x3072 (4K)
-├── 视频: 1920x1080, 24fps, H.264
-└── 编码: CRF 23 (高质量)
+Quality Parameters:
+├── Images: 2752x1536 (2K) | 5504x3072 (4K)
+├── Video: 1920x1080, 24fps, H.264
+└── Encoding: CRF 23 (high quality)
 ```
 
 ---
 
-## 🎯 使用流程总结
+## 🎯 Usage Flow Summary
 
-### 基础流程（仅图片）
+### Basic Flow (images only)
 ```
-用户文档 → 内容规划 → 生成图片 → 图片播放器 → ✅
-```
-
-### 完整流程（图片 + 视频）
-```
-用户文档 → 内容规划 → 生成图片 → 生成转场视频 
-         → 视频播放器 + 完整视频 → ✅
+User document → Content planning → Generate images → Image player → ✅
 ```
 
-### 快速流程（使用完整视频）
+### Full Flow (images + video)
 ```
-用户文档 → 内容规划 → 生成图片 → 生成视频 
-         → 导出 MP4 → 直接分享 → ✅
+User document → Content planning → Generate images → Generate transitions
+             → Video player + Full video → ✅
+```
+
+### Quick Flow (full video only)
+```
+User document → Content planning → Generate images → Generate video
+             → Export MP4 → Share directly → ✅
 ```
 
 ---
 
 <div align="center">
 
-**🏗️ 架构设计原则**
+**🏗️ Architecture Design Principles**
 
-模块化 • 可扩展 • 高内聚低耦合 • API 驱动
+Modular • Extensible • High Cohesion, Low Coupling • API-Driven
 
 Made with ❤️ by 歸藏
 

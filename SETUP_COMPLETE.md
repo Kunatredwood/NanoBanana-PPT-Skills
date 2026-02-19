@@ -1,176 +1,176 @@
-# 环境配置完成！
+# Setup Complete!
 
-## ✅ 已完成的配置
+## ✅ Completed Configuration
 
-### 1. Python依赖安装 ✓
+### 1. Python Dependencies Installed ✓
 - google-genai (1.57.0)
 - pillow (12.1.0)
-- 所有依赖项已安装在虚拟环境中
+- All dependencies installed in the virtual environment
 
-### 2. API密钥配置 ✓
-- GEMINI_API_KEY 已设置
-- 密钥存储在 .env 文件中
-- .gitignore 已配置，防止密钥泄露
+### 2. API Key Configured ✓
+- GEMINI_API_KEY is set
+- Key stored in .env file
+- .gitignore configured to prevent key leakage
 
-### 3. 便捷脚本创建 ✓
-- run.sh: 自动激活虚拟环境和设置API密钥的启动脚本
+### 3. Convenience Script Created ✓
+- run.sh: startup script that automatically activates the virtual environment and loads the API key
 
-## 🚀 现在可以使用了！
+## 🚀 Ready to Use!
 
-### 方式1: 使用便捷脚本（推荐）
+### Option 1: Use the convenience script (recommended)
 
 ```bash
-# 直接运行，自动处理环境
+# Run directly — environment is handled automatically
 ./run.sh --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-### 方式2: 手动激活环境
+### Option 2: Activate environment manually
 
 ```bash
-# 激活虚拟环境
+# Activate virtual environment
 source venv/bin/activate
 
-# 设置API密钥（如果需要）
+# Set API key (if needed)
 export GEMINI_API_KEY="your-api-key-here"
 
-# 运行脚本
+# Run the script
 python generate_ppt.py --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-### 方式3: 在Claude Code中使用（最简单）
+### Option 3: Use in Claude Code (simplest)
 
-只需要在Claude Code中说：
+Just tell Claude Code:
 
 ```
-我想基于"莫伊兰箭.md"文档生成一个5页的PPT
+I want to generate a 5-page PPT based on the "MoYiLanJian.md" document
 ```
 
-Claude会自动处理所有步骤。
+Claude will handle all steps automatically.
 
-## 🧪 快速测试
+## 🧪 Quick Test
 
-我已经为您创建了一个测试规划文件 `test_slides_plan.json`，包含5页关于"莫伊兰箭"的PPT内容。
+A test plan file `test_slides_plan.json` has been created for you, containing 5 pages of PPT content about "MoYiLanJian".
 
-### 运行测试：
+### Run the test:
 
 ```bash
 cd /Users/guohao/Documents/code/ppt/ppt-generator
 ./run.sh --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-### 生成说明：
-- 每页大约需要30秒
-- 5页总共约2.5分钟
-- 生成完成后会显示输出路径
+### Generation notes:
+- Each page takes about 30 seconds
+- 5 pages will take about 2.5 minutes total
+- The output path will be shown once generation is complete
 
-### 查看结果：
+### View the result:
 
 ```bash
-# 打开播放器（生成完成后会显示具体路径）
+# Open the player (the exact path will be shown after generation)
 open outputs/TIMESTAMP/index.html
 ```
 
-## 📁 项目文件说明
+## 📁 Project File Structure
 
 ```
 ppt-generator/
-├── run.sh                    # 便捷启动脚本（推荐使用）
-├── .env                      # API密钥配置文件
-├── .gitignore               # Git忽略文件（保护密钥）
-├── venv/                    # Python虚拟环境
-├── generate_ppt.py          # 核心生成脚本
-├── ppt-generator.md         # Skill定义
-├── README.md                # 项目说明
-├── QUICKSTART.md            # 快速开始指南
-├── styles/                  # 风格库
-│   └── gradient-glass.md    # 渐变毛玻璃卡片风格
-├── templates/               # HTML模板
-│   └── viewer.html          # PPT播放器
-└── outputs/                 # 生成结果（自动创建）
+├── run.sh                    # Convenience startup script (recommended)
+├── .env                      # API key configuration (do not commit)
+├── .gitignore               # Git ignore file (protects keys)
+├── venv/                    # Python virtual environment
+├── generate_ppt.py          # Core generation script
+├── ppt-generator.md         # Skill definition
+├── README.md                # Project documentation
+├── QUICKSTART.md            # Quick start guide
+├── styles/                  # Style library
+│   └── gradient-glass.md    # Gradient glass card style
+├── templates/               # HTML templates
+│   └── viewer.html          # PPT player
+└── outputs/                 # Generated results (auto-created)
 ```
 
-## ⚙️ 环境变量
+## ⚙️ Environment Variables
 
-API密钥已配置在：
-1. **run.sh** - 启动脚本中自动加载
-2. **.env** - 环境变量文件
+The API key is configured in:
+1. **run.sh** — automatically loaded by the startup script
+2. **.env** — environment variable file
 
-**重要提醒**：
-- ⚠️ 不要将 .env 文件提交到公共代码仓库
-- ⚠️ API密钥已包含在 .gitignore 中
-- ⚠️ 如需分享项目，删除 .env 文件中的密钥
+**Important reminders:**
+- ⚠️ Do not commit the .env file to a public repository
+- ⚠️ The API key is already covered by .gitignore
+- ⚠️ If sharing the project, remove the key from the .env file
 
-## 🎯 下一步
+## 🎯 Next Steps
 
-### 选项1: 立即测试
+### Option 1: Run a quick test
 ```bash
 ./run.sh --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-### 选项2: 生成自己的PPT
-1. 准备您的文档（Markdown或文本）
-2. 在Claude Code中说明您的需求
-3. Claude会自动分析文档并生成PPT
+### Option 2: Generate your own PPT
+1. Prepare your document (Markdown or plain text)
+2. Describe your needs in Claude Code
+3. Claude will automatically analyze the document and generate the PPT
 
-### 选项3: 查看文档
-- `README.md` - 完整项目说明
-- `QUICKSTART.md` - 快速上手指南
-- `ppt-generator.md` - 详细技术文档
+### Option 3: Read the documentation
+- `README.md` — Full project documentation
+- `QUICKSTART.md` — Quick start guide
+- `ppt-generator.md` — Detailed technical documentation
 
-## 💡 使用技巧
+## 💡 Usage Tips
 
-### 分辨率选择：
-- **2K (2752x1536)**: 日常使用，快速生成
-- **4K (5504x3072)**: 重要场合，高质量输出
+### Resolution options:
+- **2K (2752x1536)**: Everyday use, fast generation
+- **4K (5504x3072)**: Important occasions, high-quality output
 
-### 页数建议：
-- **5页**: 5分钟快速演讲
-- **5-10页**: 15分钟标准演示
-- **10-15页**: 30分钟深入讲解
-- **20-25页**: 60分钟完整展示
+### Slide count suggestions:
+- **5 slides**: 5-minute quick pitch
+- **5–10 slides**: 15-minute standard presentation
+- **10–15 slides**: 30-minute in-depth session
+- **20–25 slides**: 60-minute full training
 
-### 播放器快捷键：
-- `←` `→`: 切换页面
-- `↑` `Home`: 首页
-- `↓` `End`: 末页
-- `空格`: 自动播放/暂停
-- `ESC`: 全屏切换
-- `H`: 隐藏/显示控件
+### Player keyboard shortcuts:
+- `←` `→`: Navigate slides
+- `↑` `Home`: First slide
+- `↓` `End`: Last slide
+- `Space`: Auto-play / pause
+- `ESC`: Toggle fullscreen
+- `H`: Show / hide controls
 
-## 🆘 遇到问题？
+## 🆘 Having Issues?
 
-### 环境问题
+### Environment issues
 ```bash
-# 重新激活虚拟环境
+# Reactivate the virtual environment
 source venv/bin/activate
 
-# 检查依赖
+# Check dependencies
 pip list | grep genai
 ```
 
-### API问题
+### API issues
 ```bash
-# 检查API密钥
+# Check API key
 echo $GEMINI_API_KEY
 
-# 手动设置（如果需要）
+# Set manually (if needed)
 export GEMINI_API_KEY="your-key"
 ```
 
-### 生成失败
-1. 检查网络连接
-2. 确认API密钥有效
-3. 降低分辨率重试
-4. 查看详细错误信息
+### Generation failures
+1. Check your network connection
+2. Confirm the API key is valid
+3. Try a lower resolution
+4. Check the detailed error message
 
-## 🎉 准备就绪！
+## 🎉 Ready to Go!
 
-您的PPT生成器已经完全配置好了，可以开始使用了！
+Your PPT generator is fully configured and ready to use!
 
-**推荐第一步**：运行测试命令，体验完整流程。
+**Recommended first step:** Run the test command to experience the full workflow.
 
 ```bash
 ./run.sh --plan ../test_slides_plan.json --style styles/gradient-glass.md --resolution 2K
 ```
 
-祝您使用愉快！🚀
+Happy creating! 🚀

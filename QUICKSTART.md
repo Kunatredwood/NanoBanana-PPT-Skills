@@ -1,160 +1,160 @@
-# 快速使用指南
+# Quick Start Guide
 
-## 🚀 5分钟快速上手
+## 🚀 Get Started in 5 Minutes
 
-### 步骤1: 设置API密钥
+### Step 1: Set Your API Key
 
 ```bash
 export GEMINI_API_KEY='your-google-ai-api-key'
 ```
 
-**获取API密钥**: 访问 [Google AI Studio](https://makersuite.google.com/app/apikey)
+**Get your API key**: Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-### 步骤2: 安装依赖
+### Step 2: Install Dependencies
 
 ```bash
 pip install google-genai pillow
 ```
 
-### 步骤3: 准备文档
+### Step 3: Prepare Your Document
 
-创建或准备一个markdown文档，例如 `my-document.md`：
+Create or prepare a markdown document, e.g. `my-document.md`:
 
 ```markdown
-# 我的演示主题
+# My Presentation Topic
 
-## 第一部分：背景
-这里是背景介绍...
+## Part 1: Background
+Background introduction here...
 
-## 第二部分：核心观点
-- 观点1：...
-- 观点2：...
-- 观点3：...
+## Part 2: Core Points
+- Point 1: ...
+- Point 2: ...
+- Point 3: ...
 
-## 第三部分：总结
-关键发现和行动建议...
+## Part 3: Summary
+Key findings and action recommendations...
 ```
 
-### 步骤4: 在Claude Code中使用
+### Step 4: Use in Claude Code
 
-打开Claude Code，执行：
+Open Claude Code and run:
 
 ```
-我想基于 my-document.md 生成一个5页的PPT，使用渐变毛玻璃卡片风格，2K分辨率。
+I want to generate a 5-page PPT from my-document.md using the gradient glass card style at 2K resolution.
 ```
 
-Claude会自动：
-1. 分析文档内容
-2. 规划5页PPT的内容
-3. 生成高质量图片
-4. 创建HTML播放网页
+Claude will automatically:
+1. Analyze the document content
+2. Plan the 5-page PPT structure
+3. Generate high-quality images
+4. Create an HTML presentation viewer
 
-### 步骤5: 查看结果
+### Step 5: View the Result
 
 ```bash
 open outputs/TIMESTAMP/index.html
 ```
 
-使用键盘操作：
-- ← → : 切换页面
-- ESC : 全屏模式
-- 空格 : 自动播放
+Keyboard controls:
+- `←` `→`: Navigate slides
+- `ESC`: Fullscreen mode
+- `Space`: Auto-play
 
-## 💡 使用技巧
+## 💡 Tips
 
-### 技巧1: 选择合适的页数
+### Tip 1: Choose the Right Slide Count
 
-- **5页**: 电梯演讲（5分钟）
-- **5-10页**: 标准演示（10-15分钟）
-- **10-15页**: 深入讲解（20-30分钟）
-- **20-25页**: 完整培训（45-60分钟）
+- **5 slides**: Elevator pitch (5 minutes)
+- **5–10 slides**: Standard presentation (10–15 minutes)
+- **10–15 slides**: In-depth session (20–30 minutes)
+- **20–25 slides**: Full training (45–60 minutes)
 
-### 技巧2: 优化文档结构
+### Tip 2: Optimize Your Document Structure
 
-**好的文档结构**:
+**Good structure:**
 ```markdown
-# 主标题
+# Main Title
 
-## 核心观点1
-- 要点
-- 要点
-- 要点
+## Core Point 1
+- Key point
+- Key point
+- Key point
 
-## 核心观点2
-[详细说明...]
+## Core Point 2
+[Detailed explanation...]
 
-## 总结
-[关键结论...]
+## Summary
+[Key conclusions...]
 ```
 
-**不理想的结构**:
+**Less ideal structure:**
 ```markdown
-# 标题
-一大段没有分段的文字...
+# Title
+One long paragraph of text with no sectioning...
 ```
 
-### 技巧3: 分辨率选择建议
+### Tip 3: Resolution Selection Guide
 
-| 用途 | 推荐分辨率 | 生成时间 | 文件大小 |
-|------|------------|----------|----------|
-| 日常演示 | 2K | ~30秒/页 | ~2MB/页 |
-| 正式场合 | 2K | ~30秒/页 | ~2MB/页 |
-| 打印输出 | 4K | ~60秒/页 | ~8MB/页 |
-| 大屏展示 | 4K | ~60秒/页 | ~8MB/页 |
+| Use Case | Recommended Resolution | Generation Time | File Size |
+|----------|------------------------|-----------------|-----------|
+| Daily presentations | 2K | ~30s/slide | ~2MB/slide |
+| Formal occasions | 2K | ~30s/slide | ~2MB/slide |
+| Print output | 4K | ~60s/slide | ~8MB/slide |
+| Large screen display | 4K | ~60s/slide | ~8MB/slide |
 
-### 技巧4: 批量生成
+### Tip 4: Batch Generation
 
-如果需要生成多个版本：
+To generate multiple versions at once:
 
 ```bash
-# 5页精简版
+# 5-slide brief version
 python generate_ppt.py --plan plan_5.json --style styles/gradient-glass.md --resolution 2K --output outputs/v1-brief
 
-# 15页详细版
+# 15-slide detailed version
 python generate_ppt.py --plan plan_15.json --style styles/gradient-glass.md --resolution 2K --output outputs/v2-detailed
 ```
 
-## 🎨 自定义风格
+## 🎨 Custom Styles
 
-### 创建新风格
+### Create a New Style
 
-1. 复制现有风格文件：
+1. Copy an existing style file:
 ```bash
 cp styles/gradient-glass.md styles/my-style.md
 ```
 
-2. 编辑风格定义：
+2. Edit the style definition:
 ```markdown
-# 我的自定义风格
+# My Custom Style
 
-## 风格ID
+## Style ID
 my-custom-style
 
-## 基础提示词模板
-[修改为你的风格描述...]
+## Base Prompt Template
+[Modify to describe your style...]
 ```
 
-3. 使用新风格：
+3. Use the new style:
 ```bash
 python generate_ppt.py --plan plan.json --style styles/my-style.md
 ```
 
-## 🔧 高级用法
+## 🔧 Advanced Usage
 
-### 手动调整提示词
+### Manually Adjust Prompts
 
-1. 查看生成的提示词：
+1. View generated prompts:
 ```bash
 cat outputs/TIMESTAMP/prompts.json
 ```
 
-2. 复制并修改想要调整的提示词
+2. Copy and modify the prompt for a specific slide
 
-3. 创建新的规划文件并重新生成
+3. Create a new plan file and regenerate
 
-### 混合页面类型
+### Mix Page Types
 
-在JSON规划文件中自定义页面类型：
+Customize page types in the JSON plan file:
 
 ```json
 {
@@ -167,73 +167,73 @@ cat outputs/TIMESTAMP/prompts.json
 }
 ```
 
-### 并行生成
+### Parallel Generation
 
-同时生成多个版本：
+Generate multiple versions simultaneously:
 
 ```bash
 python generate_ppt.py --plan plan1.json --style styles/gradient-glass.md --output outputs/v1 &
 python generate_ppt.py --plan plan2.json --style styles/gradient-glass.md --output outputs/v2 &
 wait
-echo "所有版本生成完成！"
+echo "All versions generated!"
 ```
 
-## 📋 常见问题
+## 📋 FAQ
 
-### Q: 生成失败怎么办？
+### Q: What if generation fails?
 
-A: 检查以下几点：
-1. API密钥是否正确设置
-2. 网络连接是否正常
-3. Python依赖是否完整安装
-4. 查看详细错误信息
+A: Check the following:
+1. Is the API key set correctly?
+2. Is the network connection stable?
+3. Are all Python dependencies installed?
+4. Review the detailed error message
 
-### Q: 可以生成中文内容吗？
+### Q: Can I generate content in Chinese?
 
-A: 可以！Nano Banana Pro支持多语言，包括中文。
+A: Yes! Nano Banana Pro supports multiple languages, including Chinese.
 
-### Q: 生成需要多长时间？
+### Q: How long does generation take?
 
 A:
-- 2K: 约30秒/页
-- 4K: 约60秒/页
-- 5页PPT大约需要2.5-5分钟
+- 2K: About 30 seconds per slide
+- 4K: About 60 seconds per slide
+- A 5-slide PPT takes approximately 2.5–5 minutes
 
-### Q: 如何导出为PDF？
+### Q: How do I export to PDF?
 
-A: 在浏览器中打开HTML播放器，使用"打印"功能：
-1. 打开播放器
-2. 按 Cmd+P (Mac) 或 Ctrl+P (Windows)
-3. 选择"另存为PDF"
+A: Open the HTML player in a browser and use the print function:
+1. Open the player
+2. Press `Cmd+P` (Mac) or `Ctrl+P` (Windows)
+3. Select "Save as PDF"
 
-### Q: 可以修改已生成的PPT吗？
+### Q: Can I modify an already generated PPT?
 
-A: 可以通过以下方式：
-1. 编辑JSON规划文件
-2. 修改提示词
-3. 重新运行生成脚本
+A: Yes, through the following methods:
+1. Edit the JSON plan file
+2. Modify the prompts
+3. Re-run the generation script
 
-### Q: 支持哪些文档格式？
+### Q: What document formats are supported?
 
-A: 目前最佳支持Markdown格式，也可以使用纯文本。
+A: Markdown format works best, but plain text is also supported.
 
-## 📞 获取帮助
+## 📞 Get Help
 
-遇到问题？
-1. 查看README.md
-2. 查看ppt-generator.md详细文档
-3. 在Claude Code中使用 `/help`
+Stuck?
+1. See README.md
+2. See ppt-generator.md for detailed documentation
+3. Use `/help` in Claude Code
 
-## 🎯 最佳实践清单
+## 🎯 Best Practices Checklist
 
-✅ 使用清晰的标题和分段
-✅ 每页内容不超过3-5个要点
-✅ 选择合适的页数范围
-✅ 日常使用2K分辨率
-✅ 保存原始JSON规划文件
-✅ 定期检查API配额使用情况
-✅ 测试播放器在不同浏览器的表现
+✅ Use clear headings and sections
+✅ Keep each slide to 3–5 key points maximum
+✅ Choose an appropriate slide count
+✅ Use 2K resolution for everyday use
+✅ Save the original JSON plan file
+✅ Check API quota usage regularly
+✅ Test the player across different browsers
 
 ---
 
-**开始创作吧！** 🚀
+**Start creating!** 🚀
